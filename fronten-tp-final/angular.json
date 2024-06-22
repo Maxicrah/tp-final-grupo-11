@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tp-final-grupo-11": {
+    "fronten-tp-final": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tp-final-grupo-11",
+            "outputPath": "dist/fronten-tp-final",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tp-final-grupo-11:build:production"
+              "buildTarget": "fronten-tp-final:build:production"
             },
             "development": {
-              "buildTarget": "tp-final-grupo-11:build:development"
+              "buildTarget": "fronten-tp-final:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "tp-final-grupo-11:build"
+            "buildTarget": "fronten-tp-final:build"
           }
         },
         "test": {
