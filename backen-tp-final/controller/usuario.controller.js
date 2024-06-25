@@ -64,13 +64,13 @@ usuarioCtrl.loginUsuario = async (req, res) => {
             })
         } else {
             console.log("Usuario ingresado correctamente: ", usuario);
-            const unToken = jwt.sign({ id: usuario._id, rol: usuario.rol.nombreRol }, "secretKey");
+            //const unToken = jwt.sign({ id: usuario._id, rol: usuario.rol.nombreRol }, "secretKey");
             if (usuario.rol.nombreRol === 'propietario') {
                 const propietarioFind = await Propietario.find({ usuario: usuario._id });
                 res.json({
                     status: 1,
                     message: "Usuario ingresado correctamente",
-                    token: unToken,
+                    //token: unToken,
                     propietario: propietarioFind
                 })
             }
@@ -82,7 +82,7 @@ usuarioCtrl.loginUsuario = async (req, res) => {
                     username: usuario.nombreUsuario,
                     rol: usuario.rol,
                     userid: usuario._id,
-                    token: unToken
+                    //token: unToken
                 })
             }
 
@@ -93,7 +93,7 @@ usuarioCtrl.loginUsuario = async (req, res) => {
                     username: usuario.nombreUsuario,
                     rol: usuario.rol,
                     userid: usuario._id,
-                    token: unToken
+                    //token: unToken
                 })
             }
         }

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-const MONGODB_URL = 'mongodb://localhost:27017/galeriasdb';
+
+//comentar dependiendo cual acepte la conexion
+//const MONGODB_URL = 'mongodb://localhost:27017/galeriasdb';
+const MONGODB_URL = 'mongodb://127.0.0.1/galeriasdb';
 
 async function connectToDatabase() {
     try {
