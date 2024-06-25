@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:4200' }));
 
 app.use('/api/rol', require('./route/rol.route'));
+app.use('/api/usuario', require('./route/usuario.route'));
+
 app.get('/', async (req, res) => {
     res.json({ message: 'Welcome to the API!' });
 });
