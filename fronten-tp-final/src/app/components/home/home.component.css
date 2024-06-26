@@ -1,0 +1,49 @@
+.carousel-item img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.list-group-item {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.page-item.disabled .page-link {
+  pointer-events: none;
+  opacity: 0.6;
+}
