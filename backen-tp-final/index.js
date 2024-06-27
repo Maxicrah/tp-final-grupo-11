@@ -12,6 +12,10 @@ app.use(cors({ origin: 'http://localhost:4200' }));
 
 app.use('/api/rol', require('./route/rol.route'));
 app.use('/api/usuario', require('./route/usuario.route'));
+//ruta propietarios
+app.use('/api/propietario', require('./route/propietario.route'));
+//ruta pagos
+app.use('/api/pago', require('./route/pago.route'));
 
 app.get('/', async (req, res) => {
     res.json({ message: 'Welcome to the API!' });
