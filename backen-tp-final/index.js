@@ -9,9 +9,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:4200' }));
-
+//ruta roles
 app.use('/api/rol', require('./route/rol.route'));
+//ruta usuarios
 app.use('/api/usuario', require('./route/usuario.route'));
+//ruta locales
+app.use('/api/locales', require('./route/local.route'));
 //ruta propietarios
 app.use('/api/propietario', require('./route/propietario.route'));
 //ruta pagos
