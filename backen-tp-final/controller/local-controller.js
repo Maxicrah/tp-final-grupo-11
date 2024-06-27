@@ -1,4 +1,4 @@
-const Local = require('../models/local');
+const Local = require('../model/local');
 
 const localCtrl = {};
 
