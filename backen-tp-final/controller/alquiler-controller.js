@@ -2,14 +2,23 @@ const { isValidObjectId } = require('mongoose');
 const Alquiler = require('../model/alquiler');
 const alquilerCtrl = {};
 
-alquilerCtrl.getAllAlquileres = async (req, res) => {
+alquilerCtrl.getAlquileres = async (req, res) => {
     try {
-        const alquileres = await Alquiler.find();
-        res.json({ data: alquileres });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+        const alquileres = await Alquiler.find().populate('propietario local pagoAlquiler');
+        res.json(alquileres);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-}
+};
+
+// alquilerCtrl.getAllAlquileres = async (req, res) => {
+//     try {
+//         const alquileres = await Alquiler.find();
+//         res.json({ data: alquileres });
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// }
 
 alquilerCtrl.createAlquiler = async (req, res) => {
     const Alquiler = new Alquiler(req.body);
