@@ -3,8 +3,8 @@ const router = express.Router();
 const usuarioCtrl = require('../controller/usuario.controller');
 const authCtrl = require('../controller/auth.controller');
 
-router.get('/usuario/registro', authCtrl.registerUser);
-router.post('/usuario/login', authCtrl.loginUser);
+router.post('/registro', authCtrl.registerUser);
+router.post('/login', authCtrl.loginUser);
 
 router.get('/usuarios', authCtrl.verifyToken, usuarioCtrl.getAllUsuarios);
 router.post('/usuario', authCtrl.verifyToken, usuarioCtrl.createUsuario);
