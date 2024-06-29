@@ -1,35 +1,84 @@
 const jwt = require('jsonwebtoken');
-const Propietario = require('../model/propietario');
+const bcrypt = require('bcryptjs');
+const Usuario = require('../model/usuario');
 
 const authCtrl = {};
 
-authCtrl.verifyTokenAdmin = (req, res, next) => {
-    if (!req.headers.authorization) {
-        return res.json({
-            message: "Token no proveido.",
+authCtrl.registerUser = async (req, res) => {
+    const { nombreUsuario, password, rol } = req.body;
+
+    try {
+        let usuario = await Usuario.findOne({ nombreUsuario });
+        if (usuario) {
+            return res.status(400).json({
+                status: '0',
+                message: 'El usuario ya existe.'
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        usuario.password = await bcrypt.hash(password, salt);
+
+        await usuario.save();
+
+        const payload = {
+            usuario: {
+                id: usuario.id,
+                rol: usuario.rol
+            }
+        };
+
+        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
+            if (err) throw err;
+            res.status(201).json({ token });
         });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-    const token = req.headers.authorization.split('')[1];
-    console.log("Token admin: ", token);
-    if (token === null) {
-        res.json({
-            message: "No existe un token.",
-        })
+}
+
+authCtrl.loginUser = async (req, res) => {
+    const { nombreUsuario, password } = req.body;
+
+    try {
+        const usuario = await Usuario.findOne({ nombreUsuario }).populate('rol');
+        if (!usuario) {
+            return res.status(400).json({ message: 'Credenciales no válidas' });
+        }
+
+        const isMatch = await bcrypt.compare(password, usuario.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Credenciales no válidas' });
+        }
+
+        const payload = {
+            usuario: {
+                id: usuario.id,
+                rol: usuario.rol
+            }
+        };
+
+        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
+            if (err) throw err;
+            res.status(200).json({ token });
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+authCtrl.verifyToken = (req, res, next) => {
+    const token = req.header('Autorization');
+    if (!token) {
+        return res.status(401).json({ message: 'No token, autorización denegada' });
     }
 
-    const payload = jwt.verify(token,"secretKey");
-
-    console.log(payload);
-    req.userId = payload.id;
-    req.userRol = payload.rol;
-
-    if (req.userRol === "administrador") {
-        console.log("Token admin verificado correctamente");
-    } else {
-        res.json({
-            message: "No tienes permisos de administrador, " + "su perfil es: " +
-            req.userRol
-        })
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.usuario = decoded.usuario;
+        next();
+    } catch (err) {
+        res.status(400).json({ message: 'Token no válido' });
     }
 }
 

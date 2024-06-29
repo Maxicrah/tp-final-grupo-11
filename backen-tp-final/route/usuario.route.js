@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-
 const usuarioCtrl = require('../controller/usuario.controller');
 const authCtrl = require('../controller/auth.controller');
 
-router.get('/', authCtrl.verifyTokenAdmin ,usuarioCtrl.getAllUsuarios);
-//router.post('/', authCtrl.verifyTokenAdmin, usuarioCtrl.createUsuario);
-router.post('/', usuarioCtrl.createUsuario);
-router.get('/detalle/:id', authCtrl.verifyTokenAdmin, usuarioCtrl.getUsuarioById);
-router.put('/:id', authCtrl.verifyTokenAdmin, usuarioCtrl.updateUsuario);
-router.delete('/:id', authCtrl.verifyTokenAdmin, usuarioCtrl.deleteUsuario);
+router.get('/usuario/registro', authCtrl.registerUser);
+router.post('/usuario/login', authCtrl.loginUser);
 
-router.post('/login', usuarioCtrl.loginUsuario);
+router.get('/usuarios', authCtrl.verifyToken, usuarioCtrl.getAllUsuarios);
+router.post('/usuario', authCtrl.verifyToken, usuarioCtrl.createUsuario);
+router.get('/usuario/:id', authCtrl.verifyToken, usuarioCtrl.getUsuarioById);
+router.put('/usuario/:id', authCtrl.verifyToken, usuarioCtrl.updateUsuario);
+router.delete('/usuario/:id', authCtrl.verifyToken, usuarioCtrl.deleteUsuario);
 
 module.exports = router;
