@@ -5,9 +5,9 @@ const { Schema } = mongoose;
 const EncargadoSchema = new Schema({
     apellido: { type: String, required: true },
     nombre: { type: String, required: true },
-    dni: { type: Number, required: true },
+    dni: { type: String, required: true },
     email: { type: String, required: true },
-    telefono: { type: Number, required: true },
+    telefono: { type: String, required: true },
     domicilio: { type: String, required: true },
     usuario: { type: Schema.Types.ObjectId, ref: Usuario, required: true }
 })

@@ -1,59 +1,79 @@
 const Propietario = require('../model/propietario');
-// const Local = require('../model/local');
-// const Pago = require('../model/pago');
-
-
 const propietarioCtrl = {}
-propietarioCtrl.getPropietarios = async (req, res) => {
-    var propietarios = await Propietario.find();
-    res.json(propietarios);
+
+propietarioCtrl.getAllPropietarios = async (req, res) => {
+    try {
+        const propietarios = await Propietario.find().populate('usuario');
+        res.json({ data: propietarios });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 propietarioCtrl.createPropietario = async (req, res) => {
-    var propietario = new Propietario(req.body);
+    const propietario = new Propietario(req.body);
     try {
-        await propietario.save();
+        const newPropietario = await propietario.save();
         res.json({
             'status': '1',
-            'msg': 'Propietario guardado.'
+            'msg': 'Propietario guardado.',
+            data: newPropietario
         })
     } catch (error) {
         res.status(400).json({
             'status': '0',
-            'msg': 'Error procesando operacion.'
+            'msg': 'Error procesando operacion.',
+            message: error.message
         })
     }
 }
-propietarioCtrl.getPropietario = async (req, res) => {
-    const propietario = await Propietario.findById(req.params.id);
-    res.json(propietario);
-}
-propietarioCtrl.editPropietario = async (req, res) => {
-    const vpropietario = new Propietario(req.body);
+
+propietarioCtrl.getPropietarioById = async (req, res) => {
     try {
-        await Propietario.updateOne({ _id: req.body._id }, vpropietario);
-        res.json({
-            'status': '1',
-            'msg': 'Propietario updated'
-        })
+        const propietario = await Propietario.findById(req.params.id).populate('usuario');
+        if(!propietario) {
+            return res.status(404).json({
+                status: '0',
+                message: 'El propietario no fue encontrado.'
+            });
+        }
+        res.json({ data: propietario });
     } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
-        })
+        res.status(500).json({
+            status: '0',
+            message: 'Error procesando la operación.'
+        });
     }
+}
+propietarioCtrl.updateProietario = async (req, res) => {
+   try {
+    const updatedPropietario = await Propietario.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if(!updatedPropietario) {
+        return res.status(404).json({
+            status: '0',
+            message: 'El propietario no fue encontrado.'
+        });
+    }
+    res.json({ data: updatedPropietario });
+   } catch (error) {
+    res.status(400).json({
+        status: '0',
+        message: 'Error procesando la operación. ' + error.message
+    });
+   }
 }
 propietarioCtrl.deletePropietario = async (req, res) => {
     try {
-        await Propietario.deleteOne({ _id: req.params.id });
+        const deletePropietario = await Propietario.deleteOne({ _id: req.params.id });
+        if (!deletePropietario) return res.status(404).json({ message: 'El propietario no fue encontrado.' });
         res.json({
             status: '1',
-            msg: 'Propietario removed'
-        })
+            msg: 'El propietario ha sido eliminado correctamente'
+        });
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             'status': '0',
             'msg': 'Error procesando la operacion'
-        })
+        });
     }
     // Ver pagos realizados por un propietario
 // propietarioCtrl.getPagos = async (req, res) => {
