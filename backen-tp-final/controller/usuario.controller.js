@@ -1,5 +1,7 @@
 const Usuario = require('../model/usuario');
 const usuarioCtrl = {};
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 usuarioCtrl.getAllUsuarios = async (req, res) => {
     try {
@@ -11,20 +13,47 @@ usuarioCtrl.getAllUsuarios = async (req, res) => {
 }
 
 usuarioCtrl.createUsuario = async (req, res) => {
-    var usuario = new Usuario(req.body);
+    const { nombreUsuario, password, rol } = req.body;
+
     try {
+        let usuario = await Usuario.findOne({ nombreUsuario });
+        if (usuario) {
+            return res.status(400).json({
+                status: '0',
+                message: 'El usuario ya existe.'
+            });
+        }
+
+        usuario = new Usuario(req.body);
+        
+        const salt = await bcrypt.genSalt(10);
+        usuario.password = await bcrypt.hash(password, salt);
+
         await usuario.save();
-        res.json({
-            status: '1',
-            message: 'Usuario guardado correctamente'
+
+        const payload = {
+            usuario: {
+                id: usuario.id,
+                rol: usuario.rol
+            }
+        };
+
+        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
+            if (err) throw err;
+            res.status(201).json({ 
+                status: '1',
+                message: 'Usuario guardado correctamente',
+                token 
+            });
         });
     } catch (error) {
         res.status(400).json({
             status: '0',
-            message: 'Error al guardar el usuario.'
+            message: 'Error al guardar el usuario.',
+            error: error.message
         });
     }
-}
+};
 
 usuarioCtrl.getUsuarioById = async (req, res) => {
     try {

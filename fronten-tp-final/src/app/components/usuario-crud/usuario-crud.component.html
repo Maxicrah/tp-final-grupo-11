@@ -6,23 +6,21 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Email</th>
           <th>Rol</th>
           <th>Acciones</th>
         </tr>
       </thead>
-      <!-- <tbody>
+      <tbody>
         <tr *ngFor="let usuario of usuarios">
           <td>{{ usuario.id }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.nombreUsuario }}</td>
           <td>{{ usuario.rol }}</td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="editarUsuario(usuario)">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
           </td>
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
   </div>
   

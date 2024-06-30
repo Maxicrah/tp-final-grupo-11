@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from '../../models/usuario';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-usuario-crud',
@@ -9,29 +11,44 @@ import { Router } from '@angular/router';
   templateUrl: './usuario-crud.component.html',
   styleUrl: './usuario-crud.component.css'
 })
-export class UsuarioCrudComponent {
+export class UsuarioCrudComponent implements OnInit{
 
-  private readonly _router = Inject(Router)
+  // private readonly _router = Inject(Router)
+  //  private readonly _usuarioService = Inject(UsuarioService)
 
-  // usuarios: Usuario[] = [];
-  // obtenerUsuarios(): void {
-  //   this.usuarioService.getUsuarios().subscribe(data => {
-  //     this.usuarios = data;
-  //   });
-  // }
+  constructor(private _router: Router, private _usuarioService: UsuarioService){
+
+
+  }
+  ngOnInit(): void {
+    this.obtenerUsuarios();
+  }
+  
+
+
+   usuarios: Usuario[] = [];
+   obtenerUsuarios(): void {
+    this._usuarioService.getUsuarios().subscribe(
+      (data: Usuario[]) => {
+        this.usuarios = data;
+        console.log(this.usuarios)
+      }
+    );
+  }
 
   nuevoUsuario(): void {
     this._router.navigate(['/usuario-form']);
   }
+  
+  
+  editarUsuario(usuario: Usuario): void {
+    this._router.navigate(['/usuario-form', usuario.id]);
+  }
 
-  // editarUsuario(usuario: Usuario): void {
-  //   this._router.navigate(['/usuario-form', usuario.id]);
-  // }
-
-  // eliminarUsuario(id: string): void {
-  //   this.usuarioService.deleteUsuario(id).subscribe(() => {
-  //     this.obtenerUsuarios();
-  //   });
-  // }
+  eliminarUsuario(id: string): void {
+    this._usuarioService.deleteUsuario(id).subscribe(() => {
+      this.obtenerUsuarios();
+    });
+  }
 }
-//}
+
