@@ -16,6 +16,12 @@ authCtrl.registerUser = async (req, res) => {
             });
         }
 
+        usuario = new Usuario({
+            nombreUsuario,
+            password,
+            rol
+        });
+
         const salt = await bcrypt.genSalt(10);
         usuario.password = await bcrypt.hash(password, salt);
 
