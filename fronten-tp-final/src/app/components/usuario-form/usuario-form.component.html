@@ -1,13 +1,13 @@
-<!-- <div class="container mt-5">
+<div class="container mt-5">
     <h2>{{ usuario.id ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <label for="nombre" class="form-label">Nombre Usuario</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombreUsuario">
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" formControlName="email">
+        <label for="nombre" class="form-label">Contraseña</label>
+        <input type="text" class="form-control" id="nombre" formControlName="password">
       </div>
       <div class="mb-3">
         <label for="rol" class="form-label">Rol</label>
@@ -16,4 +16,4 @@
       <button type="submit" class="btn btn-primary">{{ usuario.id ? 'Actualizar' : 'Guardar' }}</button>
     </form>
   </div>
-   -->
+  

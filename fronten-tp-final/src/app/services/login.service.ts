@@ -13,7 +13,7 @@ export class LoginService {
   private apiUrl = 'http://localhost:3000/api/usuario'; // URL del backend
   
   login(nombreUsuario: string, password: string): Observable<any> {
-    return this._htppClient.post(`${this.apiUrl}/login`, { nombreUsuario, password });
+    return this._htppClient.post(`${this.apiUrl}/usuario/login`, { nombreUsuario, password });
   }
 
   constructor() { }
