@@ -5,9 +5,10 @@ const Usuario = require('./usuario');
 const PropietarioSchema = new Schema({
     apellido: { type: String, required: true },
     nombre: { type: String, required: true },
+    telefono: { type: String, required: true },
     dni: { type: Number, required: true },
+
     email: { type: String, required: true },
-    telefono: { type: Number, required: true },
     domicilio: { type: String, required: true },
     usuario: { type: Schema.Types.ObjectId, ref: Usuario }
 })

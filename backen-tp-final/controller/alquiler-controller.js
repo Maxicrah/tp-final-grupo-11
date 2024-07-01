@@ -12,7 +12,20 @@ alquilerCtrl.getAllAlquileres = async (req, res) => {
 }
 
 alquilerCtrl.createAlquiler = async (req, res) => {
-    const Alquiler = new Alquiler(req.body);
+    var alquiler = new Alquiler(req.body);
+    try {
+        console.log(req.body);
+        //console.log(producto);
+        await alquiler.save();
+    }catch(error){
+        res.status(400).json({
+            status:'0',
+            message:'Error Procesando la Operacion'
+        });
+    }
+
+
+ /*   const Alquiler = new Alquiler(req.body);
     try {
         const newAlquiler = await Alquiler.create(Alquiler);
         res.json({ data: newAlquiler });
@@ -21,8 +34,8 @@ alquilerCtrl.createAlquiler = async (req, res) => {
             status: '0',
             message: 'Error procesando la operación.'
         });
-    }
-}
+    }*/
+} 
 
 alquilerCtrl.updateAlquiler = async (req, res) => {
     const id = req.body._id;
