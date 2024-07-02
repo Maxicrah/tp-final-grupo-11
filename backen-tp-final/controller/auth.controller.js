@@ -36,7 +36,11 @@ authCtrl.registerUser = async (req, res) => {
 
         jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
             if (err) throw err;
-            res.status(201).json({ token });
+            res.status(201).json({ 
+                data: usuario,
+                token,
+                message: 'Usuario registrado exitosamente'
+            });
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
