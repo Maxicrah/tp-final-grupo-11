@@ -1,12 +1,14 @@
+const localCtrl = require('../controller/local.controller');
+
 const express = require('express');
 const router = express.Router();
-const localCtrl = require('../controller/local-controller');
 
-// Rutas para locales
-router.get('/', localCtrl.getLocales);
+router.get('/', localCtrl.getAllLocales);
 router.post('/', localCtrl.createLocal);
-router.get('/:id', localCtrl.getLocal);
-router.put('/:id', localCtrl.editLocal);
+router.put('/:id', localCtrl.updateLocal);
+router.get('/detalle/:id', localCtrl.getAllLocalId);
 router.delete('/:id', localCtrl.deleteLocal);
+router.get('/:alquilado,:habilitado', localCtrl.getAllLocal2parametros);
+
 
 module.exports = router;

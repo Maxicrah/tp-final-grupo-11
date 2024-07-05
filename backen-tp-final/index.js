@@ -23,6 +23,8 @@ app.use('/api/propietario', require('./route/propietario.route'));
 app.use('/api/administrativo', require('./route/administrativo.route'));
 //ruta pagos
 app.use('/api/pago', require('./route/pago.route'));
+app.use('/api/local', require('./route/local.route'));
+app.use('/api/alquiler',require('./route/alquiler.route'));
 
 app.get('/', async (req, res) => {
     res.json({ message: 'Welcome to the API!' });
@@ -31,5 +33,7 @@ app.get('/', async (req, res) => {
 const server = app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
+
+
 
 module.exports = { app, server };
