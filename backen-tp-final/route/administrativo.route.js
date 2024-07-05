@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const administrativoCtrl = require('../controller/administrativo.controller');
-const authController = require('../controller/auth.controller');
+const verifyRole = require('../middleware/roleMiddleware');
 
-router.get('/administrativos', authController.verifyToken, administrativoCtrl.getAllAdministrativos);
-router.post('/', authController.verifyToken, administrativoCtrl.createAdministrativo);
-router.get('/:id', authController.verifyToken, administrativoCtrl.getAdministrativoById);
-router.put('/:id', authController.verifyToken, administrativoCtrl.updateAdministrativo);
-router.delete('/:id', authController.verifyToken, administrativoCtrl.deleteAdministrativo);
+router.get('/administrativos', verifyRole('administrador'), administrativoCtrl.getAllAdministrativos);
+router.post('/', verifyRole('administrador'), administrativoCtrl.createAdministrativo);
+router.get('/:id', verifyRole('administrador'), administrativoCtrl.getAdministrativoById);
+router.put('/:id', verifyRole('administrador'), administrativoCtrl.updateAdministrativo);
+router.delete('/:id', verifyRole('administrador'), administrativoCtrl.deleteAdministrativo);
 
 module.exports = router;
