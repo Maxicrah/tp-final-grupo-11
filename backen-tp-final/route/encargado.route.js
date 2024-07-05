@@ -4,9 +4,9 @@ const encargadoCtrl = require('../controller/encargado.controller');
 const verifyRole = require('../middleware/roleMiddleware');
 
 router.get('/encargados', verifyRole('encargado'), encargadoCtrl.getAllEncargados);
-router.post('/', verifyRole('administrador'), encargadoCtrl.createEncargado);
-router.get('/:id', verifyRole('administrador'), encargadoCtrl.getEncargadoById);
-router.put('/:id', verifyRole('administrador'), encargadoCtrl.updateEncargado);
-router.delete('/:id', verifyRole('administrador'), encargadoCtrl.deleteEncargado);
+router.post('/', verifyRole('encargado'), encargadoCtrl.createEncargado);
+router.get('/:id', verifyRole('encargado'), encargadoCtrl.getEncargadoById);
+router.put('/:id', verifyRole('encargado'), encargadoCtrl.updateEncargado);
+router.delete('/:id', verifyRole('encargado'), encargadoCtrl.deleteEncargado);
 
 module.exports = router;

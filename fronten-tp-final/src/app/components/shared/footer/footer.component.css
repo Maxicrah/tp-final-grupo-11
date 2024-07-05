@@ -1,8 +1,9 @@
 footer {
+  position: absolute;
   background-color: #343a40;
   color: #ffffff;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  bottom: 0px;
+  width: 100%;
 }
 
 footer a {
@@ -44,6 +45,13 @@ footer .social-icons a {
 
 footer .social-icons a:hover {
   color: #cccccc;
+}
+
+.autor {
+  position: absolute;
+  bottom: 0px;
+  height: 60px;
+  width: 100%;
 }
 
 @media (max-width: 576px) {

@@ -21,6 +21,8 @@ app.use('/api/locales', require('./route/local.route'));
 app.use('/api/propietario', require('./route/propietario.route'));
 //ruta administrativo
 app.use('/api/administrativo', require('./route/administrativo.route'));
+//ruta encargado
+app.use('/api/encargado', require('./route/encargado.route'));
 //ruta pagos
 app.use('/api/pago', require('./route/pago.route'));
 app.use('/api/local', require('./route/local.route'));

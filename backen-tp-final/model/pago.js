@@ -6,6 +6,6 @@ const PagoSchema = new Schema({
     descripcion: { type: String, required: true },
     metodoPago: { type: String, required: true },
     pagado:{type:Boolean, required: true},
-    alquiler:{type: Schema.Types.ObjectId, ref: Alquiler, required: true }
+    alquiler:{type: Schema.Types.ObjectId, ref: 'Alquiler', required: true }
 })
 module.exports = mongoose.models.Pago || mongoose.model('Pago', PagoSchema);

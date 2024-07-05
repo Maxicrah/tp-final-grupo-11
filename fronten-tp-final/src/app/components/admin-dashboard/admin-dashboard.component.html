@@ -1,1 +1,7 @@
-<p>admin-dashboard works!</p>
+<nav>
+    <ul>
+      <li *ngIf="isAdmin()">Admin Dashboard</li>
+      <li *ngIf="isPropietario()">Propietario Dashboard</li>
+      <li *ngIf="isEncargado()">Encargado Dashboard</li>
+    </ul>
+</nav>

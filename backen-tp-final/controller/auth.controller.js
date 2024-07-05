@@ -70,7 +70,7 @@ authCtrl.loginUser = async (req, res) => {
 
         jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
             if (err) throw err;
-            res.status(200).json({ token });
+            res.status(200).json({ token, rol: usuario.rol.nombreRol });
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
