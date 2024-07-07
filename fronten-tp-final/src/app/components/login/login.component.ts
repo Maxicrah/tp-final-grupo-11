@@ -29,6 +29,7 @@ export class LoginComponent {
         this.router.navigate(['/admin-dashboard']);
       },
       error => {
+        alert('Usuario o contraseña incorrectos');
         this.errorMessage = 'Credenciales no válidas';
       }
     );
