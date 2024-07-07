@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form>
+                <div class="mb-3">
+                  <label for="fechaInicioAlquiler" class="form-label">Fecha Inicio</label>
+                  <input type="date" class="form-control" id="fechaInicioAlquiler" aria-describedby="ayudafechaInicioAlquiler" name="fechaInicioAlquiler" [(ngModel)]="obAlquiler.fechaAlquiler">
+                  <div id="ayudafechaInicioAlquiler" class="form-text">Fecha en que se inicia el alquiler.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="plazoDeAlquiler" class="form-label">Plazo de Alquiler</label>
+                    <input type="number" class="form-control" id="plazoDeAlquiler" aria-describedby="ayudaplazoDeAlquiler" name="plazoDeAlquiler" [(ngModel)]="obAlquiler.plazoMes">
+                    <div id="ayudaplazoDeAlquiler" class="form-text">Cantidad de Meses que sera alquilado.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="propietario" class="form-label">Propietario</label>
+                    <select id="propietario" class="form-select" aria-label="Default select example" name="propietario"(change)="cambiarSelectPpropietario($event)" [(ngModel)]="auxPropietario._id">
+                        
+                        <option selected>Seleccionar</option>
+                        <option value="{{lp._id}}" *ngFor="let lp of auxListaDePropietario">{{lp.apellido}}</option>
+                    </select>
+                   
+                </div>
+                <div class="mb-3">
+                    <label for="local" class="form-label">Local</label>
+                    <select id="local" class="form-select" aria-label="Default select example" (change)="cambiarSelect($event)" [(ngModel)]="aux_idDeLocal">
+                        <option selected>Seleccionar</option>
+                        <option value="{{l._id}}" *ngFor="let l of listaDeLocalesDisponibles">{{l.nombreNumerico}}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="registrarAlquiler()">Alquilar</button>
+    
+                <button type="submit" class="btn btn-danger m-3">Cancelar</button>
+                
+              </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
