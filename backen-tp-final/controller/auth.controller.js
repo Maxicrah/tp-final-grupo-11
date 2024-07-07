@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../model/usuario');
+const Rol = require('../model/rol');
 
 const authCtrl = {};
 
@@ -16,10 +17,12 @@ authCtrl.registerUser = async (req, res) => {
             });
         }
 
+        const propietarioRole = await Rol.findOne({ nombreRol: 'propietario' });
+
         usuario = new Usuario({
             nombreUsuario,
             password,
-            rol
+            rol: rol || propietarioRole._id
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -34,9 +37,9 @@ authCtrl.registerUser = async (req, res) => {
             }
         };
 
-        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
-            res.status(201).json({ 
+            res.status(201).json({
                 data: usuario,
                 token,
                 message: 'Usuario registrado exitosamente'

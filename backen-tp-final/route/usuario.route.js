@@ -6,10 +6,10 @@ const authCtrl = require('../controller/auth.controller');
 router.post('/registro', authCtrl.registerUser);
 router.post('/login', authCtrl.loginUser);
 
-router.get('/usuarios', usuarioCtrl.getAllUsuarios);
-router.post('/', usuarioCtrl.createUsuario);
-router.get('/:id', usuarioCtrl.getUsuarioById);
-router.put('/:id', usuarioCtrl.updateUsuario);
-router.delete('/:id', usuarioCtrl.deleteUsuario);
+router.get('/usuarios', authCtrl.verifyToken, usuarioCtrl.getAllUsuarios);
+router.post('/', authCtrl.verifyToken, usuarioCtrl.createUsuario);
+router.get('/:id', authCtrl.verifyToken, usuarioCtrl.getUsuarioById);
+router.put('/:id', authCtrl.verifyToken, usuarioCtrl.updateUsuario);
+router.delete('/:id', authCtrl.verifyToken, usuarioCtrl.deleteUsuario);
 
 module.exports = router;
