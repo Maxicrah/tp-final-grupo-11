@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const propietarioCtrl = require('../controller/propietario.controller');
-const authCtrl = require('../controller/auth.controller');
+const verifyRole = require('../middleware/roleMiddleware');
 
 // Rutas para propietarios
-router.get('/propietarios', authCtrl.verifyToken, propietarioCtrl.getAllPropietarios);
-router.post('propietario/', authCtrl.verifyToken, propietarioCtrl.createPropietario);
-router.get('/propietario/:id', authCtrl.verifyToken, propietarioCtrl.getPropietarioById);
-router.put('/propietario/:id', authCtrl.verifyToken, propietarioCtrl.updateProietario);
-router.delete('/propietario/:id', authCtrl.verifyToken, propietarioCtrl.deletePropietario);
+router.get('/propietarios', verifyRole("propietario"), propietarioCtrl.getAllPropietarios);
+router.post('/', verifyRole("propietario"), propietarioCtrl.createPropietario);
+router.get('/:id', verifyRole("propietario"), propietarioCtrl.getPropietarioById);
+router.put('/:id', verifyRole("propietario"), propietarioCtrl.updateProietario);
+router.delete('/:id', verifyRole("propietario"), propietarioCtrl.deletePropietario);
 
 // Rutas para pagos
 // router.get('/:id/pagos', propietarioCtrl.getPagos);
