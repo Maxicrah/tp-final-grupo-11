@@ -63,6 +63,10 @@ export class AuthService {
     );
   }
 
+  register(credentials: any) {
+    return this.http.post(`${this.apiUrl}/registro`, credentials);
+  }
+
   saveToken(token: string, rol: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('rol', rol);
