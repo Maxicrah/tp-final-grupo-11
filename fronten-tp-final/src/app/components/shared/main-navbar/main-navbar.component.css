@@ -1,0 +1,47 @@
+.main-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 250px; /* Alinea el navbar a la derecha del sidebar */
+  width: calc(100% - 250px); /* Toma todo el ancho menos el del sidebar */
+  z-index: 1000;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+@media (max-width: 991.98px) {
+  .main-navbar {
+    left: 70px; /* Alineación del navbar para pantallas más pequeñas */
+    width: calc(100% - 70px); /* Ajuste de ancho para pantallas más pequeñas */
+  }
+}
+
+.navbar-search {
+  border-radius: 0;
+}
+
+.navbar .nav-link-icon {
+  color: #343a40;
+}
+
+.navbar .nav-link-icon:hover {
+  color: #495057;
+}
+
+.nav-link-icon__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nav-link-icon__wrapper .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* Ajuste para evitar que el dropdown afecte al navbar */
+.dropdown-menu {
+  position: absolute !important;
+}

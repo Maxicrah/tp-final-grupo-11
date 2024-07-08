@@ -26,7 +26,7 @@ export class LoginComponent {
     this.authService.login(this.credentials).subscribe(
       (response: any) => {
         this.authService.saveToken(response.token, response.rol);
-        this.router.navigate(['/admin-dashboard']);
+        this.router.navigate(['/duenio-dashboard']);
       },
       error => {
         alert('Usuario o contraseña incorrectos');
