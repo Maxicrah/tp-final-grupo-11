@@ -39,7 +39,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe(
         (response: any) => {
           this.authService.saveToken(response.token, response.rol);
-          this.router.navigate(['/admin-dashboard']);
+          this.router.navigate(['/duenio-dashboard']);
         },
         error => {
           this.errorMessage = 'Credenciales no válidas';

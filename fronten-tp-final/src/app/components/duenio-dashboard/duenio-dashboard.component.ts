@@ -12,17 +12,5 @@ import { RouterOutlet } from '@angular/router';
 })
 export class DuenioDashboardComponent {
 
-  @ViewChild('hamBurger') hamBurger!: ElementRef;
-
-  constructor() {}
-
-  ngAfterViewInit() {
-    // Luego de que la vista y sus elementos estén inicializados
-    this.hamBurger.nativeElement.addEventListener('click', () => {
-      const sidebar = document.querySelector('#sidebar');
-      if (sidebar) {
-        sidebar.classList.toggle('expand');
-      }
-    });
-  }
+  
 }

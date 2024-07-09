@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">Crear nuevo local</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="localForm" (ngSubmit)="submitLocal()" method="post">
+        <!-- Número numérico -->
+        <div class="form-group mb-3">
+          <label for="nombreNumerico" class="form-label">Número Numérico:</label>
+          <input type="number" class="form-control" id="nombreNumerico" formControlName="nombreNumerico">
+          <div *ngIf="localForm.get('nombreNumerico')?.errors?.['nonNegative']">
+            <small class="form-text text-danger">El número no puede ser negativo.</small>
+          </div>
+        </div>
+
+        <!-- Superficie -->
+        <div class="form-group mb-3">
+          <label for="superficie" class="form-label">Superficie:</label>
+          <input type="number" class="form-control" id="superficie" formControlName="superficie">
+          <div *ngIf="localForm.get('superficie')?.errors?.['nonNegative']">
+            <small class="form-text text-danger">La superficie no puede ser negativa.</small>
+          </div>
+        </div>
+
+        <!-- Habilitado -->
+        <div class="form-group mb-3">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="habilitado" formControlName="habilitado">
+            <label class="form-check-label" for="habilitado">¿Está habilitado?</label>
+          </div>
+        </div>
+
+        <!-- Costo Mes -->
+        <div class="form-group mb-3">
+          <label for="costoMes" class="form-label">Costo por Mes:</label>
+          <input type="number" class="form-control" id="costoMes" formControlName="costoMes">
+          <div *ngIf="localForm.get('costoMes')?.errors?.['nonNegative']">
+            <small class="form-text text-danger">El costo no puede ser negativo.</small>
+          </div>
+          <div *ngIf="localForm.get('costoMes')?.value">
+            <small class="form-text text-muted">Formato: {{ localForm.get('costoMes')?.value | currency:'ARS':'symbol' }}</small>
+          </div>
+        </div>
+
+        <!-- Path de la Imagen -->
+        <div class="form-group mb-3">
+          <label for="pathImagen" class="form-label">Imagen:</label>
+          <input type="file" class="form-control-file" id="pathImagen" formControlName="pathImagen" (change)="onFileSelected($event)" accept="image/*">
+          <small class="form-text text-muted">Selecciona una imagen.</small>
+          <img *ngIf="selectedFile" [src]="selectedFileUrl" class="img-thumbnail mt-2" style="max-height: 200px;">
+        </div>
+
+        <!-- Alquilado -->
+        <div class="form-group mb-3">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="alquilado" formControlName="alquilado">
+            <label class="form-check-label" for="alquilado">¿Está alquilado?</label>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" [disabled]="localForm.invalid || !selectedFile" (click)="openModal()">Crear</button>
+          <button type="button" class="btn btn-danger" (click)="cancel()">Limpiar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmar Registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro de que desea registrar este local?
+        <p>Nombre Local: {{ nuevoLocal.nombreNumerico }}</p>
+        <p>Habilitado: {{ nuevoLocal.habilitado }}</p>
+        <p>Costo Mes: {{ nuevoLocal.costoMes | currency:'ARS':'symbol' }}</p>
+        <p>Alquilado: {{ nuevoLocal.alquilado }}</p>
+        <p>Superficie: {{ nuevoLocal.superficie }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="cancel()" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="submitLocal()" data-bs-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
