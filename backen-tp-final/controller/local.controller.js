@@ -18,6 +18,7 @@ localCtrl.createLocal=async (req,res)=>{
         console.log(req.body);
         //console.log(producto);
         await local.save();
+        res.status(201).json(local); 
     }catch(error){
         res.status(400).json({
             status:'0',

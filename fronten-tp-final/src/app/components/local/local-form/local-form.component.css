@@ -1,0 +1,36 @@
+
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .form-check-label {
+    margin-left: 10px;
+  }
+  
+  .img-thumbnail {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+  }
+  
+  .modal-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+  }
+  
