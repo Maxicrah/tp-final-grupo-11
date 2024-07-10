@@ -79,21 +79,49 @@ authCtrl.loginUser = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
-
-authCtrl.verifyToken = (req, res, next) => {
-    const token = req.header('Autorization');
+authCtrl.refreshToken = async (req, res) => {
+    const token = req.header('Authorization').split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'No token, autorización denegada' });
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.usuario = decoded.usuario;
-        next();
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
+        console.log('Decoded in refreshToken:', decoded);
+
+        const newPayload = {
+            usuario: {
+                id: decoded.usuario.id,
+                rol: decoded.usuario.rol
+            }
+        };
+
+        jwt.sign(newPayload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, newToken) => {
+            if (err) throw err;
+            res.status(200).json({ token: newToken });
+        });
     } catch (err) {
+        console.error('Error:', err);
         res.status(400).json({ message: 'Token no válido' });
     }
 }
 
+
+authCtrl.verifyToken = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (!token) {
+        return res.status(401).json({ message: 'No token, autorización denegada' });
+    }
+
+    try {
+        const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+        console.log('Decoded in verifyToken:', decoded);
+        req.usuario = decoded.usuario;
+        next();
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(400).json({ message: 'Token no válido' });
+    }
+}
 module.exports = authCtrl;
 

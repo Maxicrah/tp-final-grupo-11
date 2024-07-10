@@ -58,11 +58,14 @@
           <div class="card shadow-sm">
             <img [src]="local.pathImagen" class="card-img-top" alt="Imagen del local">
             <div class="card-body">
-              <h5 class="card-title">{{ local.nombreNumerico }}</h5>
+              <h5 class="card-title">Local N°: {{ local.nombreNumerico }}</h5>
               <p class="card-text">Superficie: {{ local.superficie }} m²</p>
               <p class="card-text">Costo Mensual: {{ local.costoMes | currency:'ARS':'symbol' }}</p>
               <p class="card-text">Habilitado: {{ local.habilitado ? 'Sí' : 'No' }}</p>
               <p class="card-text">Alquilado: {{ local.alquilado ? 'Sí' : 'No' }}</p>
+
+              <button *ngIf="userRol === 'dueño'" class="btn btn-danger" (click)="deleteLocal(local)">Eliminar</button>
+
             </div>
           </div>
         </div>

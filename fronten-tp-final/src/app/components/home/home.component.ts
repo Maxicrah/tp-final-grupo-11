@@ -3,6 +3,7 @@
   import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
   import { LocalService } from '../../services/local/local.service';
   import { Local } from '../../models/local/local';
+import { UsuarioService } from '../../services/usuario.service';
   
   @Component({
     selector: 'app-home',
@@ -15,13 +16,15 @@
     currentPage: number = 1;
     itemsPerPage: number = 10;
     searchText = '';
-  
+    userRol: string = ''; 
     searchLocal: FormGroup;
     locales: Local[] = [];
     filteredLocales: Local[] = [];
 
 
-    constructor(private fb: FormBuilder, private _localService: LocalService) {
+    constructor(private fb: FormBuilder, private _localService: LocalService,
+      private _usuarioService: UsuarioService
+    ) {
       this.searchLocal = this.fb.group({
         text: ['', Validators.required]
       });
@@ -32,7 +35,23 @@
       this._localService.localCreated$.subscribe(() => {
         this.loadLocales();
       });
+      // Asumiendo que tienes una manera de obtener el id del usuario actual, como desde un servicio de autenticación
+    const userId = this._usuarioService.getCurrentUserId(); 
+    this.obtenerRolUsuario(userId);
     }
+
+    obtenerRolUsuario(id: string): void {
+      this._usuarioService.getRolUsuario(id).subscribe(
+        (response) => {
+          this.userRol = response.rol;  // Asignar solo el valor de 'rol'
+        },
+        (error) => {
+          console.error('Error al obtener el rol del usuario:', error);
+        }
+      );
+    }
+    
+    
     filterBy(criteria: string): void {
       switch(criteria) {
         case 'mayorCosto':
@@ -97,4 +116,35 @@
         this.currentPage--;
       }
     }
+
+
+    // deletLocal(local:Local):void{
+    //   this._localService.eliminarLocal(local._id).subscribe(
+    //     () => {
+    //       console.log('Local eliminado correctamente.');
+    //       this.loadLocales();
+    //     },
+    //     (error) => {
+    //       console.error('Error al eliminar el local:', error);
+    //     }
+    //   )
+    // }
+    
+    deleteLocal(local: Local): void {
+      if (this.userRol === 'dueño') {
+        this._localService.eliminarLocal(local._id).subscribe(
+          () => {
+            console.log('Local eliminado correctamente.');
+            this.loadLocales();
+          },
+          (error) => {
+            console.error('Error al eliminar el local:', error);
+          }
+        );
+      } else {
+        console.error('No tienes permisos para eliminar locales.');
+        // Aquí podrías mostrar un mensaje al usuario indicando que no tiene permisos
+      }
+    }
+    
   }
