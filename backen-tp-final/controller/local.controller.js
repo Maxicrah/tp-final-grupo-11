@@ -7,6 +7,7 @@ localCtrl.getAllLocales = async (req, res)=>{
     try{
         const locales=await Local.find();
         res.json({data:locales});
+        res.status(201) 
     }catch(error){
         res.status(400).json({message:error.message});
     }

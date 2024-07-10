@@ -19,3 +19,12 @@ export class Local {
     }
     
 }
+// export interface Local {
+//     _id:string;
+//     nombreNumerico:number;
+//     superficie:number;
+//     habilitado:boolean;
+//     costoMes:number;
+//     pathImagen:string;
+//     alquilado:boolean;
+//     }

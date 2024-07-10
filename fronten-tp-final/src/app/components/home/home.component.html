@@ -1,4 +1,5 @@
 <div class="container mt-5">
+  <!-- Carousel de imágenes -->
   <div class="row">
     <div class="col-lg-12">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -38,7 +39,8 @@
       </div>
     </div>
   </div>
-  
+
+  <!-- Formulario de búsqueda de locales -->
   <div class="row mt-5">
     <div class="col-lg-8">
       <div class="mb-4">
@@ -49,28 +51,64 @@
           </div>
         </form>
       </div>
-      <div class="row my-2">
+
+      <!-- Lista de locales -->
+      <div class="row">
         <div class="col-md-6 mb-4" *ngFor="let local of paginatedLocales">
           <div class="card shadow-sm">
-            <img [src]="local.imagen" class="card-img-top" alt="Imagen del local">
+            <img [src]="local.pathImagen" class="card-img-top" alt="Imagen del local">
             <div class="card-body">
-              <h5 class="card-title">{{ local.nombre }}</h5>
-              <p class="card-text">{{ local.descripcion }}</p>
+              <h5 class="card-title">{{ local.nombreNumerico }}</h5>
+              <p class="card-text">Superficie: {{ local.superficie }} m²</p>
+              <p class="card-text">Costo Mensual: {{ local.costoMes | currency:'ARS':'symbol' }}</p>
+              <p class="card-text">Habilitado: {{ local.habilitado ? 'Sí' : 'No' }}</p>
+              <p class="card-text">Alquilado: {{ local.alquilado ? 'Sí' : 'No' }}</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Paginación -->
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="currentPage === 1">
             <a class="page-link" href="#" (click)="prevPage(); $event.preventDefault()">Anterior</a>
           </li>
-          <li class="page-item" [class.disabled]="(currentPage * itemsPerPage) >= filteredLocales().length">
+          <li class="page-item" [class.disabled]="(currentPage * itemsPerPage) >= locales.length">
             <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Siguiente</a>
           </li>
         </ul>
       </nav>
     </div>
+
+    <!-- Filtros -->
+    <div class="col-lg-4">
+      <h2>Filtros</h2>
+      <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between align-items-center" (click)="filterBy('mayorCosto')">
+          Mayor Costo
+          <span class="badge bg-success rounded-pill"><i class="bi bi-currency-dollar"></i></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" (click)="filterBy('menorCosto')">
+          Menor Costo
+          <span class="badge bg-danger rounded-pill"><i class="bi bi-coin"></i></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" (click)="filterBy('habilitados')">
+          Habilitados
+          <span class="badge bg-primary rounded-pill"><i class="bi bi-check-circle"></i></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" (click)="filterBy('alquilados')">
+          Alquilados
+          <span class="badge bg-secondary rounded-pill"><i class="bi bi-house"></i></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    
+    <!-- Filtros y formulario de creación 
     <aside class="col-lg-4">
       <h2>Filtros</h2>
       <ul class="list-group mb-4">
@@ -94,3 +132,4 @@
     </aside>
   </div>
 </div>
+ -->
