@@ -1,36 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Local } from '../../models/local/local';
 import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalService {
+  
+  private localCreatedSubject = new Subject<void>();
 
-  constructor(private _http:HttpClient){}
+  constructor(private _http: HttpClient) {}
 
-  //GET obtenerTodos
-  public obtenerListaDeLocales():Observable<any>{
-    return this._http.get('http://localhost:3000/api/local/');
+  // Observable para cuando se crea un local
+  get localCreated$(): Observable<void> {
+    return this.localCreatedSubject.asObservable();
   }
 
-  //POST AGREGAR
-  public crearLocal(local:Local):Observable<any>{
-    return this._http.post('http://localhost:3000/api/local/',local);
+  // Método para emitir el evento cuando se crea un local
+  notifyLocalCreated(): void {
+    this.localCreatedSubject.next();
   }
 
-//MODIFICAR PUT
-public modificarLocal(id:string,local:Local):Observable<any>{
-  return this._http.put('http://localhost:3000/api/local/'+id,local);
+  // GET obtenerTodos
+  // public obtenerListaDeLocales(): Observable<Local[]> {
+  //   return this._http.get<Local[]>('http://localhost:3000/api/local/');
+  // }
 
-}
+  obtenerListaDeLocales(): Observable<{ data: Local[] }> {
+    return this._http.get<{ data: Local[] }>('http://localhost:3000/api/local/');
+  }
+  
+  // POST AGREGAR
+  public crearLocal(local: Local): Observable<any> {
+    return this._http.post('http://localhost:3000/api/local/', local).pipe(
+      tap(() => this.notifyLocalCreated()) // Notificar la creación del local
+    );
+  }
 
-//LOCALES DISPONIBLES
-public obtenerLocalesDisponibles(alquilado:boolean, habilitado:boolean):Observable<any>{
-  return this._http.get('http://localhost:3000/api/local/'+alquilado+','+habilitado);
-}
+  // MODIFICAR PUT
+  public modificarLocal(id: string, local: Local): Observable<any> {
+    return this._http.put('http://localhost:3000/api/local/' + id, local);
+  }
 
+  // LOCALES DISPONIBLES
+  public obtenerLocalesDisponibles(alquilado: boolean, habilitado: boolean): Observable<any> {
+    return this._http.get(`http://localhost:3000/api/local/${alquilado},${habilitado}`);
+  }
 
   /*listaDeLocales:Array<Local>;
 
