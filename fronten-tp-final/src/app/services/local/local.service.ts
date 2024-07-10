@@ -31,6 +31,10 @@ export class LocalService {
     return this._http.get<{ data: Local[] }>('http://localhost:3000/api/local/');
   }
   
+   // DELETE eliminarLocal
+   eliminarLocal(_id: string): Observable<any> {
+    return this._http.delete(`http://localhost:3000/api/local/${_id}`);
+  }
   // POST AGREGAR
   public crearLocal(local: Local): Observable<any> {
     return this._http.post('http://localhost:3000/api/local/', local).pipe(

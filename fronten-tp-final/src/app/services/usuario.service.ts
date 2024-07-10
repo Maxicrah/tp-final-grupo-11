@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,36 @@ export class UsuarioService {
   private readonly _htppClient = inject(HttpClient)
 
   private apiUrl = 'http://localhost:3000/api/usuario'; // URL del backend
+  
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() { }
 
 
   private getHttpOptions(): { headers: HttpHeaders } {
-    const token = localStorage.getItem('token'); // o donde guardes tu token JWT
-    return {
-      headers: new HttpHeaders({
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      })
-    };
+      });
+      return { headers };
+    } else {
+      // Manejar caso donde no hay token disponible (opcional)
+      return { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    }
   }
+  
 
-
+  getCurrentUserId(): string {
+    // Lógica para obtener el ID del usuario actual, probablemente desde el token JWT almacenado
+    const token = localStorage.getItem('token');
+    if (!token) return '';
+  
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    return decodedToken?.usuario?.id || '';
+  }
+  
   public getUsuarios():Observable<Usuario[]>{
     let httpOptions = {
       headers: new HttpHeaders({
@@ -57,4 +73,9 @@ export class UsuarioService {
     return this._htppClient.delete<void>(url, this.getHttpOptions());
   }
 
+  getRolUsuario(_id: string): Observable<{ rol: string }> {
+    return this._htppClient.get<{ rol: string }>(`${this.apiUrl}/rol/${_id}`, this.getHttpOptions());
+  }
+  
+  
 }
