@@ -54,8 +54,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         this.saveToken(response.token, response.rol);
-        if (response.rol === 'dueño') {
-          this.router.navigate(['/dashboard-dueño']);
+        if (response.rol === 'propietario') {
+          this.router.navigate(['/dashboard-propietario']);
+        } else if (response.rol === 'administrador') {
+          this.router.navigate(['/dashboard-admin']);
+        } else if (response.rol === 'dueño') {
+          this.router.navigate(['/dashboard-duenio']);
         } else {
           this.router.navigate(['/dashboard-normal']);
         }

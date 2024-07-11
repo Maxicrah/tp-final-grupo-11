@@ -1,7 +1,9 @@
-<nav>
-    <ul>
-      <li *ngIf="isAdmin()">Admin Dashboard</li>
-      <li *ngIf="isPropietario()">Propietario Dashboard</li>
-      <li *ngIf="isEncargado()">Encargado Dashboard</li>
-    </ul>
-</nav>
+<div class="wrapper">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <div class="content container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
