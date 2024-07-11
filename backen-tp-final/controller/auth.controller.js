@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../model/usuario');
-const Rol = require('../model/rol');
 
 const authCtrl = {};
 
