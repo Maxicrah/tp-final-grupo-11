@@ -58,6 +58,17 @@ export class SidebarComponent {
       return '/dashboard/perfil';
     }
   }
+
+  getPostToFacebookLink():string{
+    if (this.rol === 'dueño'){
+      return '/duenio-dashboard/post-form';
+    }
+    else if (this.rol === 'administrador') {
+      return '/admin-dashboard/post-form';
+    } else {
+      return '/home';
+    }
+  }
   
   getLocalFormLink(): string {
     if (this.rol === 'dueño') {
