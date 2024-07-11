@@ -1,4 +1,4 @@
-<div id="sidebar" class="bg-dark text-white">
+<!-- <div id="sidebar" class="bg-dark text-white">
   <div class="sidebar-header d-flex align-items-center justify-content-between">
     <div class="sidebar-logo">
       <a routerLink="/duenio-dashboard" routerLinkActive="active">Dueño Dashboard</a>
@@ -39,6 +39,52 @@
   </ul>
   <div class="sidebar-footer">
     <a routerLink="/logout" class="sidebar-link">
+      <i class="lni lni-exit"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</div> -->
+
+<div id="sidebar" class="bg-dark text-white">
+  <div class="sidebar-header d-flex align-items-center justify-content-between">
+    <div class="sidebar-logo">
+      <a [routerLink]="getDashboardLink()" routerLinkActive="active">{{ getDashboardTitle() }}</a>
+    </div>
+  </div>
+  <ul class="sidebar-nav" *ngIf="rol">
+    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador' || rol === 'propietario'">
+      <a [routerLink]="getProfileLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-user"></i>
+        <span>Perfil</span>
+      </a>
+    </li>
+    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador'">
+      <a [routerLink]="getLocalFormLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-agenda"></i>
+        <span>Locales</span>
+      </a>
+    </li>
+    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador' || rol == 'propietario'">
+      <a [routerLink]="getAlquilerFormLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-agenda"></i>
+        <span>Alquiler de Locales</span>
+      </a>
+    </li>
+    <li class="sidebar-item" *ngIf="rol === 'dueño'">
+      <a [routerLink]="getNotificacionesLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-popup"></i>
+        <span>Notificaciones</span>
+      </a>
+    </li>
+    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador'">
+      <a [routerLink]="getConfiguracionLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-cog"></i>
+        <span>Configuración</span>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <a (click)="logout()" class="sidebar-link">
       <i class="lni lni-exit"></i>
       <span>Logout</span>
     </a>
