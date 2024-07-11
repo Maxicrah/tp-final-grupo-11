@@ -7,6 +7,7 @@ import { LoginComponent } from './website/auth/login/login.component';
 import { RegisterComponent } from './website/auth/register/register.component';
 import { DuenioDashboardComponent } from './components/duenio-dashboard/duenio-dashboard.component';
 import { LocalFormComponent } from './components/local/local-form/local-form.component';
+import { AboutComponent } from './website/about/about.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
         { path: 'local-form', component: LocalFormComponent},
       ]},
     { path: 'admin-dashboard', component: AdminDashboardComponent},
+    { path: 'about', component: AboutComponent},
     // { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
     // { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
     // { path: '**', redirectTo: 'home', pathMatch: 'full' },
