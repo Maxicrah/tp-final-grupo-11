@@ -3,7 +3,7 @@
   import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
   import { LocalService } from '../../services/local/local.service';
   import { Local } from '../../models/local/local';
-import { UsuarioService } from '../../services/usuario.service';
+  import { UsuarioService } from '../../services/usuario.service';
   
   @Component({
     selector: 'app-home',
