@@ -1,0 +1,38 @@
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #797a85, #661212);
+}
+
+.card {
+  width: 80%;
+  max-width: 900px;
+  border: none;
+}
+
+.card-header h2,
+.card-body h3 {
+  margin-bottom: 1rem;
+}
+
+.card-body p {
+  margin-bottom: 1rem;
+}
+
+.card-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card-body ul li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.card-body ul li i {
+  margin-right: 0.5rem;
+  color: #661212;
+}
