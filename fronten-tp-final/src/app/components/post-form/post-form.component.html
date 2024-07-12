@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white text-center">
+      Realiza una publicación
+    </div>
+    <div class="card-body">
+      <form [formGroup]="postForm" (ngSubmit)="postToFacebook()" novalidate>
+        <div class="form-group">
+          <label for="message">Mensaje:</label>
+          <textarea id="message" formControlName="message" class="form-control" rows="3" placeholder="Escriba su publicación..."></textarea>
+          <div *ngIf="postForm.get('message')?.invalid && postForm.get('message')?.touched" class="text-danger">
+            El mensaje es requerido y este campo no puede estar vacío.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imageUrl">URL de la imagen:</label>
+          <input id="imageUrl" formControlName="imageUrl" type="text" class="form-control" placeholder="Ingrese una URL de imagen válida (e.g., https://example.com/image.jpg)">
+          <div *ngIf="postForm.get('imageUrl')?.invalid && postForm.get('imageUrl')?.touched" class="text-danger">
+            Por favor ingrese una URL de imagen válida (debe terminar en .png o .jpg).
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="postForm.invalid">Postear en Facebook</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

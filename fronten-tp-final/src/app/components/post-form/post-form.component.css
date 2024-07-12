@@ -1,0 +1,17 @@
+.container {
+  max-width: 600px;
+  margin: 20px auto; /* Centrar el formulario en la página */
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.text-danger {
+  font-size: 0.875rem; /* Reducir el tamaño del texto de error */
+}

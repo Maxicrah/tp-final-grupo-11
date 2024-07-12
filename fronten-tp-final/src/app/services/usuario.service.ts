@@ -78,4 +78,8 @@ export class UsuarioService {
   }
   
   
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/maxiBranch
