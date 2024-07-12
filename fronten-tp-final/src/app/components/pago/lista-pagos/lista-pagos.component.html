@@ -1,0 +1,32 @@
+<div>
+      <div class="card" style="width: 18rem;">
+        
+        <div class="card-body">
+          <h5 class="card-title">Alquiler de Local: {{auxObAlquiler.local.nombreNumerico}}</h5>
+          <p class="card-text">Propietario/Inquilino: {{auxObAlquiler.propietario.apellido}} {{auxObAlquiler.propietario.nombre}}</p>
+          <p class="price">Precio Mensual ${{auxObAlquiler.costoAlquiler}}</p>
+          <button id="checkout-btn">ComprarBoton</button> 
+          <div id="wallet_container"></div> <!-- Agregado de mercadoPago    -->
+        </div>
+      </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Fecha de Pago</th>
+            <th scope="col">Costo del Mes</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Estado Pagado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of auxListaPagos">
+            <th >{{p.fechaPago | date:'yyyy-MM-dd'}} </th>
+            <td>{{p.total}}</td>
+            <td>{{p.descripcion}}</td>
+            <td>{{p.pagado}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+</div>

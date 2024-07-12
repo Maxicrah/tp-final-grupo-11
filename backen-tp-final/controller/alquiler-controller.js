@@ -4,12 +4,22 @@ const alquilerCtrl = {};
 
 alquilerCtrl.getAlquileres = async (req, res) => {
     try {
-        const alquileres = await Alquiler.find().populate('propietario local pagoAlquiler');
+        const alquileres = await Alquiler.find().populate('propietario').populate('local');
         res.json(alquileres);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
+
+//Get obtiene una lista de alquileres filtrado por ID de Propietario
+alquilerCtrl.getObtenerListaDeAlquilerPorPropietario = async (req,res)=>{
+    try{
+        const alquileres=await Alquiler.find({propietario: req.params._id});
+        res.json(alquileres);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
 
 // alquilerCtrl.getAllAlquileres = async (req, res) => {
 //     try {
@@ -74,7 +84,7 @@ alquilerCtrl.updateAlquiler = async (req, res) => {
 
 alquilerCtrl.getAllAlquilerId = async (req, res) => {
     try {
-        const alquiler = await Alquiler.findById(req.params.id);
+        const alquiler = await Alquiler.findById(req.params.id).populate('propietario').populate('local');
         if(!alquiler) {
             return res.status(404).json({
                 status: '0',

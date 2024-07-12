@@ -16,19 +16,25 @@
                 
                 <div class="mb-3">
                     <label for="propietario" class="form-label">Propietario</label>
-                    <select id="propietario" class="form-select" aria-label="Default select example" name="propietario"(change)="cambiarSelectPpropietario($event)" [(ngModel)]="auxPropietario._id">
+                    <select id="propietario" class="form-select" aria-label="Default select example" name="propietario"(change)="cambiarSelectPpropietario($event)">
                         
                         <option selected>Seleccionar</option>
-                        <option value="{{lp._id}}" *ngFor="let lp of auxListaDePropietario">{{lp.apellido}}</option>
+                        <option value="{{lp._id}}" *ngFor="let lp of auxListaDePropietario2">{{lp.apellido}}</option>
                     </select>
                    
                 </div>
                 <div class="mb-3">
                     <label for="local" class="form-label">Local</label>
-                    <select id="local" class="form-select" aria-label="Default select example" (change)="cambiarSelect($event)" [(ngModel)]="aux_idDeLocal">
+                    <select id="local" class="form-select" aria-label="Default select example" (change)="cambiarSelect($event)" >
                         <option selected>Seleccionar</option>
+                       <!-- <option value="{{l._id}}" *ngFor="let l of listaDeLocalesDisponibles">{{l.nombreNumerico}}</option> -->
                         <option value="{{l._id}}" *ngFor="let l of listaDeLocalesDisponibles">{{l.nombreNumerico}}</option>
                     </select>
+                    <div id="ayudaplazoDeAlquiler" class="form-text">El nombre es numerico.</div>
+                </div>
+                <div>
+                    <label for="disabledTextInput" class="form-label">Precio del Local</label>
+                    <input type="number" id="disabledTextInput" class="form-control" readonly name="disabledTextInput" [(ngModel)]="obAlquiler.costoAlquiler">
                 </div>
                 <button type="submit" class="btn btn-primary" (click)="registrarAlquiler()">Alquilar</button>
     

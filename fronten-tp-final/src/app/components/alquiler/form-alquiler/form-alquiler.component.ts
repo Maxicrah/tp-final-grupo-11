@@ -25,7 +25,9 @@ export class FormAlquilerComponent {
 
   //auxListaDeLocales:Array<Local>;
   auxListaDePropietario:Array<Propietario>;
+  auxListaDePropietario2:Array<Propietario>;
   auxPropietario:Propietario;
+  
   auxLocal:Local;
   auxPagos:Array <Pago>;
   alquilado:boolean;
@@ -40,14 +42,16 @@ export class FormAlquilerComponent {
     this.auxPagos=new Array<Pago>();
    // this.auxListaDeLocales=localService.obtenerListaDeLocales();
     this.auxListaDePropietario=propietarioService.obtenerListaDePropietarios();
+    this.auxListaDePropietario2=new Array<Propietario>();
     this.listaDeLocalesDisponibles=new Array<Local>();
     this.alquilado=true;
     this.habilitado=true;
     this.cargarLocalesDisponibles();
     this.aux_idDeLocal="";
+    this.obtenerListaDePropietarios();
   }
   
-  cargarLocalesDisponibles():void{
+  cargarLocalesDisponibles():void{            //deberia ser FALSO // debe ser VERDADERO
     this.localService.obtenerLocalesDisponibles(this.alquilado, this.habilitado).subscribe(
       (ultado:any)=>{
         this.listaDeLocalesDisponibles=ultado;
@@ -56,6 +60,17 @@ export class FormAlquilerComponent {
       }
     )
   }
+
+  obtenerListaDePropietarios():void{
+    this.propietarioService.obtenerListaDePropietarios02().subscribe(
+      (ultado:any)=>{
+        this.auxListaDePropietario2=ultado.data;
+        console.log("MI LISTA DE PROPIETARIOS de la DB");
+        console.log(this.auxListaDePropietario2);
+      }
+    )
+  }
+
   mostrarDatos():void{
     console.log(this.aux_idDeLocal);
     console.log(this.obAlquiler.local._id);
@@ -69,6 +84,11 @@ export class FormAlquilerComponent {
     this.obAlquiler.local._id=e.target.value;
     console.log("METODO CAMBIAR SELECT");
     console.log(e.target.value);
+    this.listaDeLocalesDisponibles.forEach(local => {
+      if(local._id==e.target.value){
+        this.obAlquiler.costoAlquiler=local.costoMes;
+      }
+    });
   }
 
   cambiarSelectPpropietario(e:any):void{

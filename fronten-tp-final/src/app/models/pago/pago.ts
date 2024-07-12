@@ -1,14 +1,14 @@
 export class Pago {
     //ATRIBUTOS
-    fechaDePago:Date; //fecha en que se cobra la cuota del mes de alquiler.
-    pagoCostoMes:number;
+    fechaPago:Date; //fecha en que se cobra la cuota del mes de alquiler.
+    total:number;
     descripcion:string;
     pagado:boolean;
 
     //CONSTRUCTOR
     constructor(){
-        this.fechaDePago = new Date
-        this.pagoCostoMes=0;
+        this.fechaPago = new Date
+        this.total=0;
         this.descripcion = "";
         this.pagado = false;
 

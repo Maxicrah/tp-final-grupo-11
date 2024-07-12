@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Propietario } from '../../models/propietario/propietario';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +9,11 @@ import { Propietario } from '../../models/propietario/propietario';
 export class PropietarioService {
 
   listaDePropietarios:Array<Propietario>;
-
-  constructor() {
+  //CONSTRUCTOR
+  constructor(private _http:HttpClient) {
     this.listaDePropietarios = [];
     this.cargarListaDePropietarios();
+    
    }
 
    cargarListaDePropietarios():void{
@@ -40,4 +43,12 @@ export class PropietarioService {
    obtenerListaDePropietarios():Array<Propietario>{
     return this.listaDePropietarios;
    }
+
+   //GET obtener todos
+   public obtenerListaDePropietarios02():Observable<any>{
+    return this._http.get("http://localhost:3000/api/propietario/propietarios");
+   }
+
+   
+
 }

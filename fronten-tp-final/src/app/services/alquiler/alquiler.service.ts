@@ -15,10 +15,21 @@ export class AlquilerService {
     return this._http.get('http://localhost:3000/api/alquiler/');
   }
 
+  //GET de un Propietario
+  public obtenerListaDeAlquilerPorPropietario(_id:string):Observable<any>{
+    return this._http.get('http://localhost:3000/api/alquiler/propietario'+_id);
+  }
+
   //POST AGREGAR
   public crearAlquiler(alquiler:Alquiler):Observable<any>{
     return this._http.post('http://localhost:3000/api/alquiler/',alquiler);
   }
+
+  //GET obtener el alquiler filtrado por un ID
+  public obtenerAlquilerPorId(_id:string):Observable<any>{
+    return this._http.get('http://localhost:3000/api/alquiler/'+_id);
+  }
+
 
 
 }
