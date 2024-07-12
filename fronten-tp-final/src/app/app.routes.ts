@@ -8,10 +8,7 @@ import { RegisterComponent } from './website/auth/register/register.component';
 import { DuenioDashboardComponent } from './components/duenio-dashboard/duenio-dashboard.component';
 import { LocalFormComponent } from './components/local/local-form/local-form.component';
 import { AboutComponent } from './website/about/about.component';
-<<<<<<< HEAD
-=======
 import { PostFormComponent } from './components/post-form/post-form.component';
->>>>>>> origin/maxiBranch
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
@@ -20,14 +17,6 @@ export const routes: Routes = [
     ]},
     { path : 'login', component: LoginComponent},
     { path: 'registro', component: RegisterComponent},
-<<<<<<< HEAD
-    { path: 'duenio-dashboard', component: DuenioDashboardComponent, children: [
-        { path: 'alquiler-form', component: FormAlquilerComponent },
-        { path: 'local-form', component: LocalFormComponent},
-      ]},
-    { path: 'admin-dashboard', component: AdminDashboardComponent},
-    { path: 'about', component: AboutComponent},
-=======
     { path: 'duenio-dashboard', component: DuenioDashboardComponent, canActivate: [AuthGuard], children: [
         { path: 'alquiler-form', component: FormAlquilerComponent },
         { path: 'local-form', component: LocalFormComponent},
@@ -35,7 +24,6 @@ export const routes: Routes = [
       ]},
     { path: 'about', component: AboutComponent},
     
->>>>>>> origin/maxiBranch
     // { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
     // { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
     // { path: '**', redirectTo: 'home', pathMatch: 'full' },

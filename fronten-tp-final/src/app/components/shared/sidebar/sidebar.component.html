@@ -70,15 +70,12 @@
         <span>Alquiler de Locales</span>
       </a>
     </li>
-<<<<<<< HEAD
-=======
-    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador' || rol == 'propietario'">
+    <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador'">
       <a [routerLink]="getPostToFacebookLink()" routerLinkActive="active" class="sidebar-link">
      <i class="bi bi-facebook"></i>
     <span>Realizar Publicacion En Facebook</span>
       </a>
     </li>
->>>>>>> origin/maxiBranch
     <li class="sidebar-item" *ngIf="rol === 'dueño'">
       <a [routerLink]="getNotificacionesLink()" routerLinkActive="active" class="sidebar-link">
         <i class="lni lni-popup"></i>

@@ -3,11 +3,7 @@
   import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
   import { LocalService } from '../../services/local/local.service';
   import { Local } from '../../models/local/local';
-<<<<<<< HEAD
-import { UsuarioService } from '../../services/usuario.service';
-=======
   import { UsuarioService } from '../../services/usuario.service';
->>>>>>> origin/maxiBranch
   
   @Component({
     selector: 'app-home',
