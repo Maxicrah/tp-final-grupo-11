@@ -6,4 +6,6 @@ const pagoCtrl = require('../controller/pago-controller');
 router.get('/:id/pagos', pagoCtrl.getPagosByPropietario);
 router.post('/:id/pagos', pagoCtrl.createPago);
 
+
+
 module.exports = router;

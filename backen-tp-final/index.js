@@ -27,6 +27,9 @@ app.use('/api/encargado', require('./route/encargado.route'));
 app.use('/api/pago', require('./route/pago.route'));
 app.use('/api/local', require('./route/local.route'));
 app.use('/api/alquiler',require('./route/alquiler.route'));
+app.use('/api/mp-pago', require('./route/mp.route'));  
+
+
 
 app.get('/', async (req, res) => {
     res.json({ message: 'Welcome to the API!' });
