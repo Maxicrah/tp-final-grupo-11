@@ -34,6 +34,18 @@ export class SidebarComponent {
       return '/dashboard-normal';
     }
   }
+
+  getPagoLink(): string {
+    if (this.rol === 'propietario') {
+      return '/propietario-dashboard/pago-form';
+    } else if (this.rol === 'administrador') {
+      return '';
+    } else if (this.rol === 'dueño') {
+      return '/propietario-dashboard/pago-form';
+    } else {
+      return '/dashboard-admin';
+    }
+  }
   
   getDashboardTitle(): string {
     if (this.rol === 'propietario') {

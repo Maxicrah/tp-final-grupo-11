@@ -19,74 +19,74 @@ import { AlquilerService } from '../../../services/alquiler/alquiler.service';
 })
 export class FormAlquilerComponent {
 
-  //ATRIBUTO
-  obAlquiler:Alquiler;
-  listaDeLocalesDisponibles:Array<Local>;
+  // //ATRIBUTO
+  // obAlquiler:Alquiler;
+  // listaDeLocalesDisponibles:Array<Local>;
 
-  //auxListaDeLocales:Array<Local>;
-  auxListaDePropietario:Array<Propietario>;
-  auxPropietario:Propietario;
-  auxLocal:Local;
-  auxPagos:Array <Pago>;
-  alquilado:boolean;
-  habilitado:boolean;
-  aux_idDeLocal:string;
-  //CONTRUCTOR
-  constructor(private propietarioService:PropietarioService, 
-    private localService:LocalService, private alquilerService:AlquilerService){
-    this.obAlquiler=new Alquiler();
-    this.auxPropietario=new Propietario();
-    this.auxLocal=new Local();
-    this.auxPagos=new Array<Pago>();
-   // this.auxListaDeLocales=localService.obtenerListaDeLocales();
-    this.auxListaDePropietario=propietarioService.obtenerListaDePropietarios();
-    this.listaDeLocalesDisponibles=new Array<Local>();
-    this.alquilado=true;
-    this.habilitado=true;
-    this.cargarLocalesDisponibles();
-    this.aux_idDeLocal="";
-  }
+  // //auxListaDeLocales:Array<Local>;
+  // auxListaDePropietario:Array<Propietario>;
+  // auxPropietario:Propietario;
+  // auxLocal:Local;
+  // auxPagos:Array <Pago>;
+  // alquilado:boolean;
+  // habilitado:boolean;
+  // aux_idDeLocal:string;
+  // //CONTRUCTOR
+  // constructor(private propietarioService:PropietarioService, 
+  //   private localService:LocalService, private alquilerService:AlquilerService){
+  //   this.obAlquiler=new Alquiler();
+  //   this.auxPropietario=new Propietario();
+  //   this.auxLocal=new Local();
+  //   this.auxPagos=new Array<Pago>();
+  //  // this.auxListaDeLocales=localService.obtenerListaDeLocales();
+  //   this.auxListaDePropietario=propietarioService.obtenerListaDePropietarios();
+  //   this.listaDeLocalesDisponibles=new Array<Local>();
+  //   this.alquilado=true;
+  //   this.habilitado=true;
+  //   this.cargarLocalesDisponibles();
+  //   this.aux_idDeLocal="";
+  // }
   
-  cargarLocalesDisponibles():void{
-    this.localService.obtenerLocalesDisponibles(this.alquilado, this.habilitado).subscribe(
-      (ultado:any)=>{
-        this.listaDeLocalesDisponibles=ultado;
-        console.log("MI LISTA DE LOCALES");
-        console.log(this.listaDeLocalesDisponibles);
-      }
-    )
-  }
-  mostrarDatos():void{
-    console.log(this.aux_idDeLocal);
-    console.log(this.obAlquiler.local._id);
-    console.log("Datos del alquiler");
-    console.log(this.obAlquiler);
-    console.log("Datos del propietario");
-    console.log(this.auxPropietario);
-  }
+  // cargarLocalesDisponibles():void{
+  //   this.localService.obtenerLocalesDisponibles(this.alquilado, this.habilitado).subscribe(
+  //     (ultado:any)=>{
+  //       this.listaDeLocalesDisponibles=ultado;
+  //       console.log("MI LISTA DE LOCALES");
+  //       console.log(this.listaDeLocalesDisponibles);
+  //     }
+  //   )
+  // }
+  // mostrarDatos():void{
+  //   console.log(this.aux_idDeLocal);
+  //   console.log(this.obAlquiler.local._id);
+  //   console.log("Datos del alquiler");
+  //   console.log(this.obAlquiler);
+  //   console.log("Datos del propietario");
+  //   console.log(this.auxPropietario);
+  // }
 
-  cambiarSelect(e:any):void{
-    this.obAlquiler.local._id=e.target.value;
-    console.log("METODO CAMBIAR SELECT");
-    console.log(e.target.value);
-  }
+  // cambiarSelect(e:any):void{
+  //   this.obAlquiler.local._id=e.target.value;
+  //   console.log("METODO CAMBIAR SELECT");
+  //   console.log(e.target.value);
+  // }
 
-  cambiarSelectPpropietario(e:any):void{
-    this.obAlquiler.propietario._id=e.target.value;
-    console.log("METODO CAMBIAR SELECT PROPIETARIO");
-    console.log(e.target.value); //VER Resultados
-  }
+  // cambiarSelectPpropietario(e:any):void{
+  //   this.obAlquiler.propietario._id=e.target.value;
+  //   console.log("METODO CAMBIAR SELECT PROPIETARIO");
+  //   console.log(e.target.value); //VER Resultados
+  // }
 
-  registrarAlquiler():void{
-    console.log(this.obAlquiler);
-    this.alquilerService.crearAlquiler(this.obAlquiler).subscribe(
-      (ultado:any)=>{
-        console.log('RESULTADO DE CREAR: ');
-        console.log(ultado);
+  // registrarAlquiler():void{
+  //   console.log(this.obAlquiler);
+  //   this.alquilerService.crearAlquiler(this.obAlquiler).subscribe(
+  //     (ultado:any)=>{
+  //       console.log('RESULTADO DE CREAR: ');
+  //       console.log(ultado);
         
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 
   
 }

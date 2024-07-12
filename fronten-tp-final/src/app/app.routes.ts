@@ -9,11 +9,17 @@ import { DuenioDashboardComponent } from './components/duenio-dashboard/duenio-d
 import { LocalFormComponent } from './components/local/local-form/local-form.component';
 import { AboutComponent } from './website/about/about.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
+import { PropietarioDashboardComponent } from './components/propietario-dashboard/propietario-dashboard.component';
+import { PagoComponent } from './components/pago/pago.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
     { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
       { path: 'local-form', component: LocalFormComponent},
+    ]},
+    { path: 'propietario-dashboard', component: PropietarioDashboardComponent, canActivate: [AuthGuard], children: [
+      { path: 'alquiler-form', component: FormAlquilerComponent },
+      { path: 'pago-form', component: PagoComponent },
     ]},
     { path : 'login', component: LoginComponent},
     { path: 'registro', component: RegisterComponent},

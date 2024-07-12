@@ -1,17 +1,15 @@
-export class Pago {
-    //ATRIBUTOS
-    fechaDePago:Date; //fecha en que se cobra la cuota del mes de alquiler.
-    pagoCostoMes:number;
-    descripcion:string;
-    pagado:boolean;
+import { Alquiler } from "../alquiler/alquiler";
+import { Usuario } from "../usuario";
 
-    //CONSTRUCTOR
-    constructor(){
-        this.fechaDePago = new Date
-        this.pagoCostoMes=0;
-        this.descripcion = "";
-        this.pagado = false;
-
-    }
-
+export interface Pago {
+    _id: string,
+    usuario: Usuario,
+    montoDePago: number,
+    tipo: string,
+    status: string,
+    fechaPago: Date,
+    descripcion: string,
+    metodoPago: string,
+    preferenceId: string,
+    alquiler: Alquiler
 }
