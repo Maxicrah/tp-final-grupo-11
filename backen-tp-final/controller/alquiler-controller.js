@@ -80,7 +80,7 @@ alquilerCtrl.getAllAlquilerId = async (req, res) => {
         });
     }
 }
-
+/*
 alquilerCtrl.deleteAlquiler = async (req, res) => {
     const id = req.params.id;
     if(!id &&!isValidObjectId(id)) {
@@ -104,6 +104,21 @@ alquilerCtrl.deleteAlquiler = async (req, res) => {
             status: '0',
             message: 'Error procesando la operación.'
         });
+    }
+}   */
+
+alquilerCtrl.deleteAlquiler=async(req,res)=>{
+    try{
+        await Alquiler.deleteOne({_id:req.params._id});
+        res.json({
+            status:'1',
+            message:'Alquiler eliminado correctamente.'
+        })
+    }catch(error){
+        res.status(400).json({
+            status:'0',
+            msg:'Error procesando la eliminacion del Alquiler'
+        })
     }
 }
 

@@ -7,7 +7,7 @@ const Pago = require('./pago');
 const AlquilerSchema = new Schema({
     local: { type: Schema.Types.ObjectId, ref: Local, required: true },
     propietario: { type: Schema.Types.ObjectId, ref: Propietario, required: true },
-    //pagoAlquiler: [{ type: Pago.schema, required: false }],
+    //pagoAlquiler: [{ type: Pago.schema, required: false }], Eliminado por no usarse
     plazoMes: { type: Number, required: true },
     fechaAlquiler: { type: Date, required: true },
     costoAlquiler: { type: Number, required: false }
