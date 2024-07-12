@@ -1,6 +1,8 @@
 const Pago = require('../model/pago');
 const Local = require('../model/local');
 const Alquiler = require('../model/alquiler');
+const axios = require('axios');
+const pagoService = require('../services/pagoService');
 
 const pagoCtrl = {};
 
@@ -26,8 +28,10 @@ pagoCtrl.createPago = async (req, res) => {
         const { localId, metodoPago, descripcion, total } = req.body;
         const fechaPago = new Date();
 
-        const pago = new Pago({ fechaPago, total, descripcion, metodoPago });
+        // Crear un nuevo pago
+        const pago = new Pago({ fechaPago, total, descripcion, metodoPago, pagado: false });
 
+        // Buscar alquiler existente o crear uno nuevo
         let alquiler = await Alquiler.findOne({ propietario: propietarioId, local: localId });
 
         if (!alquiler) {
@@ -45,12 +49,50 @@ pagoCtrl.createPago = async (req, res) => {
         }
 
         await alquiler.save();
+        await pago.save();
 
-        res.status(201).json(alquiler);
+        // Crear una preferencia de pago en Mercado Pago
+        const preference = {
+            items: [{
+                title: descripcion,
+                unit_price: parseFloat(total),
+                quantity: 1,
+            }],
+            payment_methods: {
+                excluded_payment_types: [
+                    { id: 'ticket' }
+                ],
+                installments: 12  // Máximo de cuotas
+            },
+            back_urls: {
+                success: 'http://www.your-site.com/success',
+                failure: 'http://www.your-site.com/failure',
+                pending: 'http://www.your-site.com/pending'
+            },
+            auto_return: 'approved'
+        };
+
+        const response = await axios.post('https://api.mercadopago.com/checkout/preferences', preference, {
+            headers: {
+                'Authorization': `Bearer YOUR_ACCESS_TOKEN`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const initPoint = response.data.init_point;
+
+        // Actualizar el pago con el ID de preferencia
+        await pagoService.actualizarPagoConPreference(pago._id, response.data.id);
+
+        res.status(201).json({
+            alquiler,
+            initPoint  // URL para iniciar el pago en Mercado Pago
+        });
     } catch (error) {
         res.status(500).json({
             status: '0',
-            msg: 'Error procesando operación.'
+            msg: 'Error procesando operación.',
+            error: error.message
         });
     }
 };
