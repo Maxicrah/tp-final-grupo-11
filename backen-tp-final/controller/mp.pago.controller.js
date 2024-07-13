@@ -1,22 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const MpPagoService = require('../services/mp.pago.service');
+const PaymentsService = require('../services/mp.pago.service');
 
 const mpPagoCtrl = {};
 
 mpPagoCtrl.createPayment = async (req, res) => {
     try {
         const payment = req.body;
-        const newPayment = await MpPagoService.createPayment(payment);
+        const newPayment = await PaymentsService.createPayment(payment);
         res.json({
             status: '1',
             msg: 'Pago creado correctamente',
-            data: newPayment
+            data: {
+                urlPago: newPayment.urlPago // Esto debe ser una cadena
+            }
         });
     } catch (error) {
         res.status(400).json({
-            'status': '0',
-            'msg': 'Error al crear el pago: ' + error.message
+            status: '0',
+            msg: 'Error al crear el pago: ' + error.message
         });
     }
 }
@@ -30,7 +32,7 @@ mpPagoCtrl.manejarNotificacion = async (req, res) => {
                 msg: 'Notificación manejada correctamente',
             });
         }
-        const response = await MpPagoService.manejarNotificacionPago(payment.resource);
+        const response = await PaymentsService.manejarNotificacionPago(payment.resource);
         res.json({
             status: '1',
             msg: 'Notificación manejada correctamente',

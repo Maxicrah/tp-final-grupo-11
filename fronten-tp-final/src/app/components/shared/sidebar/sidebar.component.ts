@@ -41,7 +41,7 @@ export class SidebarComponent {
     } else if (this.rol === 'administrador') {
       return '';
     } else if (this.rol === 'dueño') {
-      return '/propietario-dashboard/pago-form';
+      return '/duenio-dashboard/pago-form';
     } else {
       return '/dashboard-admin';
     }

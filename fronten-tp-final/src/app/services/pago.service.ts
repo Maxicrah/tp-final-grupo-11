@@ -1,41 +1,32 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PagoService {
-  private readonly _httpClient!: HttpClient;
+  private readonly _httpClient = inject(HttpClient);
 
   private apiUrl = 'http://localhost:3000/api/mp-pago'; // URL del backend
-  
-  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() { }
 
-
   private getHttpOptions(): { headers: HttpHeaders } {
     const token = localStorage.getItem('token');
-    if (token) {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      });
-      return { headers };
-    } else {
-      // Manejar caso donde no hay token disponible (opcional)
-      return { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token || ''}`
+    });
+    return { headers };
   }
 
   crearPago(paymentData: any): Observable<any> {
     return this._httpClient.post<any>(`${this.apiUrl}/`, paymentData, this.getHttpOptions());
   }
 
-  manejarNotificacion(notificationData: any): Observable<any> {
-    const url = `${this.apiUrl}/notifications`;
-    return this._httpClient.post<any>(url, notificationData, this.getHttpOptions());
+  redirigirAPago(urlPago: string) {
+    console.log('Redirigiendo a URL de pago:', urlPago); // Verifica la URL aquí
+    window.location.href = urlPago; // Redirige al usuario al link de pago
   }
 }

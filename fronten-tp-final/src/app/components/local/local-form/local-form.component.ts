@@ -103,7 +103,7 @@ nuevoLocal: Local = new Local();
     this._localService.crearLocal(this.nuevoLocal).subscribe(
       (response: any) => {
         console.log('Respuesta del servidor:', response); 
-        //alert('Local creado exitosamente');
+        alert('Local creado exitosamente');
       },
       (error) => {
         console.error('Error al crear el local:', error); // Manejo de errores

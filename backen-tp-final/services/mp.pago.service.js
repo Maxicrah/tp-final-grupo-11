@@ -1,6 +1,5 @@
 const PagoService = require('./pagoService');
 const axios = require('axios');
-
 const hostBack = 'http://localhost:3000';
 const hostFront = 'http://localhost:4200';
 
@@ -17,7 +16,7 @@ class PaymentsService {
                 usuario: payment.usuario,
                 montoPago: payment.unit_price,
                 tipo: payment.tipo,
-                status: payment.tipo === 'MercadoPago' ? 'pending' : 'success',
+                status: payment.tipo === 'Mercado Pago' ? 'pending' : 'success',
                 fechaPago: new Date(), // Agregar la fecha del pago actual
                 descripcion: payment.descripcion || `Pago de ${payment.title} por ${payment.unit_price}`, // Agregar descripción
                 metodoPago: payment.tipo, // Asumir que el tipo es el método de pago
@@ -25,13 +24,14 @@ class PaymentsService {
             };
 
             const newPago = await PagoService.registrarPago(pago);
+            console.log("Pago registrado:", newPago);
 
-            if (payment.tipo !== 'MercadoPago') {
-                return newPago;
+            if (payment.tipo !== 'Mercado Pago') {
+                return { ...newPago, urlPago: null };
             }
 
             const url = 'https://api.mercadopago.com/checkout/preferences';
-    
+
             const body = {
                 items: [
                     {
@@ -47,24 +47,27 @@ class PaymentsService {
                     pending: `${hostFront}/pago/pending`
                 },
                 notification_url: `${hostBack}/api/payments/notifications`,
-                external_reference: newPago.id,
+                external_reference: newPago._id,
                 payment_methods: {
                     installments: 1
                 }
             };
-            
+
             const paymentResponse = await axios.post(url, body, {
                 headers: {
                     "Content-Type": 'application/json',
                     "Authorization": `Bearer ${process.env.MP_ACCESS_TOKEN}`
                 }
             });
-            
+
+            console.log("Respuesta de MercadoPago:", paymentResponse.data);
+
             // Actualizar el registro del pago con el ID de preferencia de MercadoPago
-            await PagoService.actualizarPagoConPreference(newPago.id, paymentResponse.data.id);
-    
-            return paymentResponse.data.init_point;
-    
+            await PagoService.actualizarPagoConPreference(newPago._id, paymentResponse.data.id);
+
+            // Devolver solo la URL de pago de MercadoPago
+            return { urlPago: paymentResponse.data.init_point };
+
         } catch (error) {
             console.error("Error al crear el pago: ", error);
             throw new Error("Error al crear el pago: " + error.message);
@@ -83,7 +86,7 @@ class PaymentsService {
                     "Authorization": `Bearer ${process.env.MP_ACCESS_TOKEN}`
                 }
             });
-            
+
             const externalReference = response.data.collection.external_reference;
             const paymentStatus = response.data.collection.status;
             console.log(`Actualizando estado de pago: ${externalReference} ${paymentStatus}`);
@@ -94,9 +97,9 @@ class PaymentsService {
             } else {
                 await PagoService.actualizarEstadoPago(externalReference, 'failure');
             }
-    
+
             return response.data;
-    
+
         } catch (error) {
             console.error("Error al manejar la notificación del pago: ", error);
             throw new Error("Error al manejar la notificación del pago: " + error.message);

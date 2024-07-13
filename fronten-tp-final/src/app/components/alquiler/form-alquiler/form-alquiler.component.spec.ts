@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PagoComponent } from './pago.component';
+import { FormAlquilerComponent } from './form-alquiler.component';
 
-describe('PagoComponent', () => {
-  let component: PagoComponent;
-  let fixture: ComponentFixture<PagoComponent>;
+describe('FormAlquilerComponent', () => {
+  let component: FormAlquilerComponent;
+  let fixture: ComponentFixture<FormAlquilerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PagoComponent]
+      imports: [FormAlquilerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PagoComponent);
+    fixture = TestBed.createComponent(FormAlquilerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

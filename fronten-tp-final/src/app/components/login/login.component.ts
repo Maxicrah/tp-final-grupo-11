@@ -37,11 +37,7 @@ export class LoginComponent {
               this._route.navigate(['/propietario-dashboard']);
             } else if (response.rol.nombreRol === 'administrador') {
               this._route.navigate(['/admin-dashboard']);
-<<<<<<< HEAD
-            } else if (response.rol.nombreRol === 'duenio') {
-=======
             } else if (response.rol.nombreRol === 'dueño') {
->>>>>>> origin/maxiBranch
               this._route.navigate(['/duenio-dashboard']);
             }
           } else {

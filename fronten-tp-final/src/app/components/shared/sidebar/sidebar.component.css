@@ -3,7 +3,7 @@
 /* Estilos generales del sidebar */
 #sidebar {
   width: 250px; /* Ancho por defecto */
-  min-height: 100vh;
+  min-height: 140vh;
   color: white;
   display: flex;
   flex-direction: column;

@@ -27,6 +27,7 @@ export const routes: Routes = [
         { path: 'alquiler-form', component: FormAlquilerComponent },
         { path: 'local-form', component: LocalFormComponent},
         { path: 'post-form', component: PostFormComponent},
+        { path: 'pago-form', component: PagoComponent }
       ]},
     { path: 'about', component: AboutComponent},
     

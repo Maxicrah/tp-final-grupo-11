@@ -16,7 +16,7 @@ app.use('/api/rol', require('./route/rol.route'));
 //ruta usuarios
 app.use('/api/usuario', require('./route/usuario.route'));
 //ruta locales
-app.use('/api/locales', require('./route/local.route'));
+app.use('/api/local', require('./route/local.route'));
 //ruta propietarios
 app.use('/api/propietario', require('./route/propietario.route'));
 //ruta administrativo
@@ -25,7 +25,7 @@ app.use('/api/administrativo', require('./route/administrativo.route'));
 app.use('/api/encargado', require('./route/encargado.route'));
 //ruta pagos
 app.use('/api/pago', require('./route/pago.route'));
-app.use('/api/local', require('./route/local.route'));
+//app.use('/api/', require('./route/local.route'));
 app.use('/api/alquiler',require('./route/alquiler.route'));
 app.use('/api/mp-pago', require('./route/mp.route'));  
 
