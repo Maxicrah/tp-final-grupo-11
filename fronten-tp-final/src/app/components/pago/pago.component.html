@@ -10,35 +10,61 @@
             <div class="mb-3">
               <label for="usuario" class="form-label">ID de Usuario</label>
               <input type="text" id="usuario" readonly class="form-control" formControlName="usuario" required>
+              <div *ngIf="usuario?.touched && usuario?.invalid" class="text-danger">
+                <div *ngIf="usuario?.errors?.['required']">El ID de Usuario es obligatorio.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="alquiler" class="form-label">ID de Alquiler</label>
               <input type="text" id="alquiler" class="form-control" formControlName="alquiler" required>
+              <div *ngIf="alquiler?.touched && alquiler?.invalid" class="text-danger">
+                <div *ngIf="alquiler?.errors?.['required']">El ID de Alquiler es obligatorio.</div>
+                <div *ngIf="alquiler?.errors?.['minlength']">El ID de Alquiler debe tener al menos 5 caracteres.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="unit_price" class="form-label">Monto</label>
               <input type="number" id="unit_price" class="form-control" formControlName="unit_price" required>
+              <div *ngIf="unit_price?.touched && unit_price?.invalid" class="text-danger">
+                <div *ngIf="unit_price?.errors?.['required']">El Monto es obligatorio.</div>
+                <div *ngIf="unit_price?.errors?.['min']">El Monto debe ser al menos 1.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="tipo" class="form-label">Tipo</label>
               <input type="text" id="tipo" class="form-control" formControlName="tipo" required>
+              <div *ngIf="tipo?.touched && tipo?.invalid" class="text-danger">
+                <div *ngIf="tipo?.errors?.['required']">El Tipo es obligatorio.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="title" class="form-label">Titulo</label>
               <input type="text" id="title" class="form-control" formControlName="title" required>
+              <div *ngIf="title?.touched && title?.invalid" class="text-danger">
+                <div *ngIf="title?.errors?.['required']">El Titulo es obligatorio.</div>
+                <div *ngIf="title?.errors?.['minlength']">El Titulo debe tener al menos 3 caracteres.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="descripcion" class="form-label">Descripcion</label>
               <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+              <div *ngIf="descripcion?.touched && descripcion?.invalid" class="text-danger">
+                <div *ngIf="descripcion?.errors?.['required']">La Descripción es obligatoria.</div>
+                <div *ngIf="descripcion?.errors?.['maxlength']">La Descripción no puede exceder los 255 caracteres.</div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="metodoPago" class="form-label">Método de Pago</label>
               <select id="metodoPago" class="form-select" formControlName="metodoPago" required>
+                <option value="">Seleccione un método de pago</option>
                 <option value="transferencia">Mercado Pago</option>
                 <option value="efectivo">Efectivo</option>
               </select>
+              <div *ngIf="metodoPago?.touched && metodoPago?.invalid" class="text-danger">
+                <div *ngIf="metodoPago?.errors?.['required']">El Método de Pago es obligatorio.</div>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" [disabled]="pagoForm.invalid">
               <i class="fas fa-save"></i> Guardar Pago
             </button>
           </form>

@@ -12,6 +12,24 @@ localCtrl.getAllLocales = async (req, res)=>{
         res.status(400).json({message:error.message});
     }
 }
+localCtrl.getLocalesNoAlquilados = async (req, res) => {
+    try {
+        const locales = await Local.find({ alquilado: false });
+        res.status(200).json({ data: locales });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+localCtrl.getLocalesHabilitados = async (req, res) => {
+    try {
+        const locales = await Local.find({ habilitado: true });
+        res.status(200).json({ data: locales });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 
 localCtrl.createLocal=async (req,res)=>{
     var local = new Local(req.body);

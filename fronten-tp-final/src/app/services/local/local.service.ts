@@ -31,6 +31,10 @@ export class LocalService {
     return this._http.get<{ data: Local[] }>('http://localhost:3000/api/local/');
   }
   
+  obtenerListaDeLocalesNoAlquilados(): Observable<{ data: Local[] }> {
+    return this._http.get<{ data: Local[] }>('http:///localhost:3000/api/local/no-alquilados');  
+  }
+
    // DELETE eliminarLocal
    eliminarLocal(_id: string): Observable<any> {
     return this._http.delete(`http://localhost:3000/api/local/${_id}`);

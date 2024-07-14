@@ -71,6 +71,15 @@ export class SidebarComponent {
     }
   }
 
+  
+  getLocalesDisponiblesLink():string {
+    if(this.rol === 'propietario') {
+      return '/propietario-dashboard/locales-disponibles';
+  }else{
+    return '/home';
+  }
+}
+
   getPostToFacebookLink():string{
     if (this.rol === 'dueño'){
       return '/duenio-dashboard/post-form';

@@ -21,13 +21,13 @@ export class PagoComponent implements OnInit {
     private pagoService: PagoService
   ) {
     this.pagoForm = this.fb.group({
-      alquiler: ['', Validators.required],
+      alquiler: ['', [Validators.required, Validators.minLength(5)]],
       unit_price: ['', [Validators.required, Validators.min(1)]],
       metodoPago: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(255)]],
       usuario: ['', Validators.required],
       tipo: ['', Validators.required],
-      title: ['', Validators.required]
+      title: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -57,4 +57,12 @@ export class PagoComponent implements OnInit {
       );
     }
   }
+
+  get alquiler() { return this.pagoForm.get('alquiler'); }
+  get unit_price() { return this.pagoForm.get('unit_price'); }
+  get metodoPago() { return this.pagoForm.get('metodoPago'); }
+  get descripcion() { return this.pagoForm.get('descripcion'); }
+  get usuario() { return this.pagoForm.get('usuario'); }
+  get tipo() { return this.pagoForm.get('tipo'); }
+  get title() { return this.pagoForm.get('title'); }
 }
