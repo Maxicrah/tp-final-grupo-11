@@ -46,4 +46,56 @@ mpPagoCtrl.manejarNotificacion = async (req, res) => {
     }
 }
 
+mpPagoCtrl.getEstadisticasPagos = async (req, res) => {
+    try {
+        const estadisticas = await PaymentsService.getEstadisticasPagos();
+        res.json({
+            status: '1',
+            msg: 'Estadísticas obtenidas correctamente',
+            data: estadisticas
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error al obtener las estadísticas: ' + error.message
+        });
+    }
+}
+
+mpPagoCtrl.getPagosPorMes = async (req, res) => {
+    try {
+        const pagosPorMes = await PaymentsService.getPagosPorMes();
+        res.json(pagosPorMes);
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error procesando operación.'
+        });
+    }
+};
+
+mpPagoCtrl.getPagosPorLocal = async (req, res) => {
+    try {
+        const pagosPorLocal = await PaymentsService.getPagosPorLocal();
+        res.json(pagosPorLocal);
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error procesando operación.'
+        });
+    }
+};
+
+mpPagoCtrl.getTotalPagos = async (req, res) => {
+    try {
+        const totalPagos = await PaymentsService.getTotalPagos();
+        res.json(totalPagos);
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error procesando operación.'
+        });
+    }
+};
+
 module.exports = mpPagoCtrl;

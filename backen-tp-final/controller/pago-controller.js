@@ -97,4 +97,47 @@ pagoCtrl.createPago = async (req, res) => {
     }
 };
 
+pagoCtrl.getEstadisticasPagos = async (req, res) => {
+    try {
+        // Pagos por mes
+        const pagosPorMes = await Pago.aggregate([
+            {
+                $group: {
+                    _id: { $month: "$fechaPago" },
+                    totalPagos: { $sum: "$monto" }
+                }
+            },
+            { $sort: { "_id": 1 } }
+        ]);
+
+        // Pagos por local
+        const pagosPorLocal = await Pago.aggregate([
+            {
+                $group: {
+                    _id: "$local",
+                    totalPagos: { $sum: "$monto" }
+                }
+            },
+            { $sort: { "_id": 1 } }
+        ]);
+
+        // Total de pagos
+        const totalPagos = await Pago.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalPagos: { $sum: "$monto" }
+                }
+            }
+        ]);
+
+        res.json({ pagosPorMes, pagosPorLocal, totalPagos });
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error procesando operación.'
+        });
+    }
+};
+
 module.exports = pagoCtrl;

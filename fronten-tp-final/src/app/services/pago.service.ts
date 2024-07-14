@@ -29,4 +29,20 @@ export class PagoService {
     console.log('Redirigiendo a URL de pago:', urlPago); // Verifica la URL aquí
     window.location.href = urlPago; // Redirige al usuario al link de pago
   }
+
+  obtenerEstadisticasPagos(): Observable<any> {
+    return this._httpClient.get<any>(`${this.apiUrl}/estadisticas/pagos`, this.getHttpOptions());
+  }
+
+  obtenerPagosPorMes(): Observable<any> {
+    return this._httpClient.get<any>(`${this.apiUrl}/estadisticas/pagos/mes`, this.getHttpOptions());
+  }
+
+  obtenerPagosPorLocal(): Observable<any> {
+    return this._httpClient.get<any>(`${this.apiUrl}/estadisticas/pagos/local`, this.getHttpOptions());
+  }
+
+  obtenerTotalPagos(): Observable<any> {
+    return this._httpClient.get<any>(`${this.apiUrl}/estadisticas/pagos/total`, this.getHttpOptions());
+  }
 }

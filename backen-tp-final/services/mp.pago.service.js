@@ -1,4 +1,7 @@
 const PagoService = require('./pagoService');
+const Pago = require('../model/pago');
+const Alquiler = require('../model/alquiler');
+const Local = require('../model/local');
 const axios = require('axios');
 const hostBack = 'http://localhost:3000';
 const hostFront = 'http://localhost:4200';
@@ -103,6 +106,130 @@ class PaymentsService {
         } catch (error) {
             console.error("Error al manejar la notificación del pago: ", error);
             throw new Error("Error al manejar la notificación del pago: " + error.message);
+        }
+    }
+
+    async getEstadisticasPagos() {
+        try {
+            // Pagos por mes
+            const pagosPorMes = await Pago.aggregate([
+                {
+                    $group: {
+                        _id: { $month: "$fechaPago" },
+                        totalPagos: { $sum: "$montoPago" }
+                    }
+                },
+                { $sort: { "_id": 1 } }
+            ]);
+
+            // Pagos por local
+            const pagosPorLocal = await Pago.aggregate([
+                {
+                    $group: {
+                        _id: "$alquiler",
+                        totalPagos: { $sum: "$montoPago" }
+                    }
+                },
+                { $sort: { "_id": 1 } }
+            ]);
+
+            // Total de pagos
+            const totalPagos = await Pago.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        totalPagos: { $sum: "$montoPago" }
+                    }
+                }
+            ]);
+
+            return { pagosPorMes, pagosPorLocal, totalPagos: totalPagos[0].totalPagos };
+        } catch (error) {
+            console.error("Error al obtener las estadísticas de pagos: ", error);
+            throw new Error("Error al obtener las estadísticas de pagos: " + error.message);
+        }
+    }
+
+    async getPagosPorMes() {
+        try {
+            const pagosPorMes = await Pago.aggregate([
+                {
+                    $group: {
+                        _id: { $month: "$fechaPago" },
+                        totalPagos: { $sum: "$montoPago" },
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $sort: { "_id": 1 }
+                }
+            ]);
+            return pagosPorMes;
+        } catch (error) {
+            throw new Error('Error al obtener pagos por mes: ' + error.message);
+        }
+    }
+
+    // Función para obtener pagos por local
+    async getPagosPorLocal() {
+        try {
+            const pagosPorLocal = await Pago.aggregate([
+                {
+                    $lookup: {
+                        from: "alquileres",
+                        localField: "alquiler",
+                        foreignField: "_id",
+                        as: "alquiler_info"
+                    }
+                },
+                { $unwind: "$alquiler_info" },
+                {
+                    $lookup: {
+                        from: "locales",
+                        localField: "alquiler_info.local",
+                        foreignField: "_id",
+                        as: "local_info"
+                    }
+                },
+                { $unwind: "$local_info" },
+                {
+                    $group: {
+                        _id: "$alquiler_info.local",
+                        totalPagos: { $sum: "$montoPago" },
+                        count: { $sum: 1 },
+                        localNombreNumerico: { $first: "$local_info.nombreNumerico" }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        local: "$localNombreNumerico",
+                        totalPagos: 1,
+                        count: 1
+                    }
+                }
+            ]);
+            return pagosPorLocal;
+        } catch (error) {
+            throw new Error('Error al obtener pagos por local: ' + error.message);
+        }
+    }
+
+    // Función para obtener el total de pagos
+    async getTotalPagos() {
+        try {
+            const totalPagos = await Pago.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        totalPagos: { $sum: "$montoPago" },
+                        count: { $sum: 1 }
+                    }
+                }
+            ]);
+            return totalPagos;
+        } catch (error) {
+            throw new Error('Error al obtener total de pagos: ' + error.message);
         }
     }
 }
