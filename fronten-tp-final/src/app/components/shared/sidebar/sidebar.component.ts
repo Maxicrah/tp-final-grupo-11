@@ -25,11 +25,11 @@ export class SidebarComponent {
 
   getDashboardLink(): string {
     if (this.rol === 'propietario') {
-      return '/dashboard-propietario';
+      return '/propietario-dashboard';
     } else if (this.rol === 'administrador') {
       return '/dashboard-admin';
     } else if (this.rol === 'dueño') {
-      return '/dashboard-duenio';
+      return '/duenio-dashboard';
     } else {
       return '/dashboard-normal';
     }

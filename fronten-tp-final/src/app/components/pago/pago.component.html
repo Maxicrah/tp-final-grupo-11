@@ -1,53 +1,49 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h4><i class="fas fa-money-bill-wave"></i> Crear Pago</h4>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="pagoForm" (ngSubmit)="onSubmit()">
-              <div class="mb-3">
-                <label for="alquilerId" class="form-label">ID de Usuario</label>
-                <input type="text" id="usuario" class="form-control" formControlName="usuario" required>
-              </div>
-              <div class="mb-3">
-                <label for="alquilerId" class="form-label">ID de Alquiler</label>
-                <input type="text" id="alquiler" class="form-control" formControlName="alquiler" required>
-              </div>
-              <div class="mb-3">
-                <label for="monto" class="form-label">Monto</label>
-                <input type="number" id="unit_price" class="form-control" formControlName="unit_price" required>
-              </div>
-              <div class="mb-3">
-                <label for="monto" class="form-label">Tipo</label>
-                <input type="text" id="tipo" class="form-control" formControlName="tipo" required>
-              </div>
-              <div class="mb-3">
-                <label for="monto" class="form-label">Titulo</label>
-                <input type="text" id="title" class="form-control" formControlName="title" required>
-              </div>
-              <div class="mb-3">
-                <label for="monto" class="form-label">Descripcion</label>
-                <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
-              </div>
-              <div class="mb-3">
-                <label for="metodoPago" class="form-label">Método de Pago</label>
-                <select id="metodoPago" class="form-select" formControlName="metodoPago" required>
-                  <option value="transferencia">Mercado Pago</option>
-                  <option value="efectivo">Efectivo</option>
-                </select>
-              </div>
-              <!-- <div class="mb-3">
-                <label for="fechaPago" class="form-label">Fecha de Pago</label>
-                <input type="date" id="fechaPago" class="form-control" formControlName="fechaPago" required>
-              </div> -->
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Guardar Pago
-              </button>
-            </form>
-          </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4><i class="fas fa-money-bill-wave"></i> Crear Pago</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="pagoForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="usuario" class="form-label">ID de Usuario</label>
+              <input type="text" id="usuario" readonly class="form-control" formControlName="usuario" required>
+            </div>
+            <div class="mb-3">
+              <label for="alquiler" class="form-label">ID de Alquiler</label>
+              <input type="text" id="alquiler" class="form-control" formControlName="alquiler" required>
+            </div>
+            <div class="mb-3">
+              <label for="unit_price" class="form-label">Monto</label>
+              <input type="number" id="unit_price" class="form-control" formControlName="unit_price" required>
+            </div>
+            <div class="mb-3">
+              <label for="tipo" class="form-label">Tipo</label>
+              <input type="text" id="tipo" class="form-control" formControlName="tipo" required>
+            </div>
+            <div class="mb-3">
+              <label for="title" class="form-label">Titulo</label>
+              <input type="text" id="title" class="form-control" formControlName="title" required>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripcion</label>
+              <input type="text" id="descripcion" class="form-control" formControlName="descripcion" required>
+            </div>
+            <div class="mb-3">
+              <label for="metodoPago" class="form-label">Método de Pago</label>
+              <select id="metodoPago" class="form-select" formControlName="metodoPago" required>
+                <option value="transferencia">Mercado Pago</option>
+                <option value="efectivo">Efectivo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Guardar Pago
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>

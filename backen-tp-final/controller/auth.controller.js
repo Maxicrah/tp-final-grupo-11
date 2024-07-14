@@ -71,14 +71,15 @@ authCtrl.loginUser = async (req, res) => {
             }
         };
 
-        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'}, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
-            res.status(200).json({ token, rol: usuario.rol.nombreRol });
+            res.status(200).json({ token, rol: usuario.rol.nombreRol, _id: usuario.id });
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 }
+
 authCtrl.refreshToken = async (req, res) => {
     const token = req.header('Authorization').split(' ')[1];
     if (!token) {

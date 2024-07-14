@@ -1,42 +1,3 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-//   private apiUrl = 'http://localhost:3000/api/usuario';
-
-//   constructor(private http: HttpClient, private router: Router) {}
-
-//   login(credentials: any) {
-//     return this.http.post(`${this.apiUrl}/login`, credentials);
-//   }
-
-//   saveToken(token: string, rol: string) {
-//     localStorage.setItem('token', token);
-//     localStorage.setItem('rol', rol);
-//   }
-
-//   getToken() {
-//     return localStorage.getItem('token');
-//   }
-
-//   getRol() {
-//     return localStorage.getItem('rol');
-//   }
-
-//   isAuthenticated(): boolean {
-//     return !!this.getToken();
-//   }
-
-//   logout() {
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('rol');
-//     this.router.navigate(['/login']);
-//   }
-// }
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -53,16 +14,8 @@ export class AuthService {
   login(credentials: any) {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
-        this.saveToken(response.token, response.rol);
-        if (response.rol === 'propietario') {
-          this.router.navigate(['/dashboard-propietario']);
-        } else if (response.rol === 'administrador') {
-          this.router.navigate(['/dashboard-admin']);
-        } else if (response.rol === 'dueño') {
-          this.router.navigate(['/dashboard-duenio']);
-        } else {
-          this.router.navigate(['/dashboard-normal']);
-        }
+        this.saveToken(response.token, response.rol, response._id);
+        this.redirectUser(response.rol);
       })
     );
   }
@@ -71,9 +24,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/registro`, credentials);
   }
 
-  saveToken(token: string, rol: string) {
+  saveToken(token: string, rol: string, _id: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('rol', rol);
+    localStorage.setItem('userId', _id);
   }
 
   getToken() {
@@ -84,6 +38,10 @@ export class AuthService {
     return localStorage.getItem('rol');
   }
 
+  getUserId() {
+    return localStorage.getItem('userId');
+  }
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -91,10 +49,29 @@ export class AuthService {
   isOwner(): boolean {
     return this.getRol() === 'dueño';
   }
-
+  isPropertyOwner(): boolean {
+    return this.getRol() === 'propietario'
+  }
+  
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
+    localStorage.removeItem('userId');
     this.router.navigate(['/login']);
+
+  }
+
+  private redirectUser(rol: string) {
+    if (rol === 'propietario') {
+      this.router.navigate(['/propietario-dashboard']);
+    } else if (rol === 'administrador') {
+      this.router.navigate(['/dashboard-admin']);
+    } else if (rol === 'dueño') {
+      this.router.navigate(['/duenio-dashboard']);
+    } else {
+      this.router.navigate(['/dashboard-normal']);
+    }
   }
 }
+
+

@@ -38,8 +38,12 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         (response: any) => {
-          this.authService.saveToken(response.token, response.rol);
+          this.authService.saveToken(response.token, response.rol, response._id);
+         if(response.rol === 'dueño'){
           this.router.navigate(['/duenio-dashboard']);
+         }else if(response.rol === 'propietario'){
+          this.router.navigate(['/propietario-dashboard']);
+         }
         },
         error => {
           this.errorMessage = 'Credenciales no válidas';

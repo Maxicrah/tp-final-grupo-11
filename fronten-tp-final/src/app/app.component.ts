@@ -21,4 +21,9 @@ export class AppComponent {
   isOwnerLoggedIn(): boolean {
     return this.authService.isOwner() && this.authService.isAuthenticated();
   }
+  isPropertyOwnerLoggedIn(): boolean{
+    return this.authService.isPropertyOwner() && this.authService.isAuthenticated();
+  }
+
+
 }

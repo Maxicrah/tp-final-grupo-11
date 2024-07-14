@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PagoService } from '../../services/pago.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-pago',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './pago.component.html',
-  styleUrl: './pago.component.css'
+  styleUrls: ['./pago.component.css']
 })
-export class PagoComponent {
+export class PagoComponent implements OnInit {
   pagoForm: FormGroup;
+
+  private authService = inject(AuthService);
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +32,14 @@ export class PagoComponent {
   }
 
   ngOnInit(): void {
-
+    const userId = this.authService.getUserId();
+    const userRol = this.authService.getRol();
+    
+    if (userRol === 'propietario' && userId) {
+      this.pagoForm.patchValue({ usuario: userId });
+    }
   }
 
- 
   onSubmit() {
     if (this.pagoForm.valid) {
       this.pagoService.crearPago(this.pagoForm.value).subscribe(

@@ -42,7 +42,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe(
         (response: any) => {
-          this.authService.saveToken(response.token, response.rol);
+          this.authService.saveToken(response.token, response.rol, response._id);
           localStorage.setItem('nombreUsuario', this.registerForm.value.nombreUsuario);
           this.router.navigate(['/login']);
         },
