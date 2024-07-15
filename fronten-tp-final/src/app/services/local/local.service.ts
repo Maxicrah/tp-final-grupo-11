@@ -56,6 +56,9 @@ export class LocalService {
     return this._http.get(`http://localhost:3000/api/local/${alquilado},${habilitado}`);
   }
 
+  alquilarLocal(id: string): Observable<any> {
+    return this._http.put('http://localhost:3000/api/local/alquilar/'+ id, {});
+  }
   /*listaDeLocales:Array<Local>;
 
   constructor() {

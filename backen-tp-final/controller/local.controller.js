@@ -30,6 +30,30 @@ localCtrl.getLocalesHabilitados = async (req, res) => {
     }
 };
 
+localCtrl.alquilarLocal = async (req, res) => {
+    const id = req.params.id;
+    if (!id && !isValidObjectId(id)) {
+        return res.status(400).json({
+            status: '0',
+            message: 'El ID del Local no es válido'
+        });
+    }
+    try {
+        const local = await Local.findByIdAndUpdate(id, { alquilado: true }, { new: true });
+        if (!local) {
+            return res.status(404).json({
+                status: '0',
+                message: 'El Local no fue encontrado'
+            });
+        }
+        res.json({ data: local });
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            message: 'Error procesando la operación'
+        });
+    }
+};
 
 localCtrl.createLocal=async (req,res)=>{
     var local = new Local(req.body);

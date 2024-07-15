@@ -1,5 +1,6 @@
 <!-- <button type="button" class="btn btn-success" (click)="getLocalesNoAlquilados()">Locales no alquilados</button> -->
 <!-- Lista de locales -->
+<!-- ... (otros elementos) -->
 <div class="row">
     <div class="col-md-3 col-12 col-sm-12 mb-4" *ngFor="let local of listaLocalesNoAlquilados">
       <div class="card shadow-sm">
@@ -10,9 +11,9 @@
           <p class="card-text">Costo Mensual: {{ local.costoMes | currency:'ARS':'symbol' }}</p>
           <p class="card-text">Habilitado: {{ local.habilitado ? 'Sí' : 'No' }}</p>
           <p class="card-text">Alquilado: {{ local.alquilado ? 'Sí' : 'No' }}</p>
-            <button type="button" class="btn btn-success" (click)="getLocalesNoAlquilados()">Alquilar Local</button>
-
+          <button type="button" class="btn btn-success" (click)="alquilarLocal(local._id)">Alquilar Local</button>
         </div>
       </div>
     </div>
   </div>
+  
