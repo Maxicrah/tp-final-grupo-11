@@ -1,0 +1,12 @@
+<div *ngIf="localesAlquilados.length > 0">
+    <h2>Locales Alquilados</h2>
+    <ul>
+      <li *ngFor="let local of localesAlquilados">
+        {{ local.nombreNumerico }} - {{ local.superficie }} m² - {{ local.costoMes }} ARS
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="localesAlquilados.length === 0">
+    <p>No hay locales alquilados por este propietario.</p>
+  </div>
+  

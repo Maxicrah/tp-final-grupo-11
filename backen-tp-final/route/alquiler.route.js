@@ -8,7 +8,7 @@ router.post('/', alquilerCtrl.createAlquiler); //POST crearAlquiler
 router.put('/:id', alquilerCtrl.updateAlquiler); // PUT modifgicar
 router.get('/:id', alquilerCtrl.getAllAlquilerId); //GET obtenerPor ID
 router.delete('/:id', alquilerCtrl.deleteAlquiler);  // DELETE
-
+router.get('/alquilados/:propietarioId', alquilerCtrl.getLocalesAlquiladosPorPropietario);
 
 // router.get('/:alquilado,:habilitado', alquilerCtrl.getAllLocal2parametros);
 

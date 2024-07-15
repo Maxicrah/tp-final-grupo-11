@@ -32,5 +32,16 @@ export class LocalesDisponiblesComponent {
       )
     }
 
+    alquilarLocal(id: string) {
+      this._localService.alquilarLocal(id).subscribe(
+        (response) => {
+          console.log('Local alquilado correctamente:', response.data);
+          this.getLocalesNoAlquilados();
+        },
+        (err) => {
+          console.log('Error al alquilar el local:', err);
+        }
+      );
+    }
 
 }

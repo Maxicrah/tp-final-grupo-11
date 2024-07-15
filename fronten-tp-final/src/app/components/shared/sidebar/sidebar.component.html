@@ -70,6 +70,12 @@
         <span>Alquilar Local</span>
       </a>
     </li>
+    <li class="sidebar-item" *ngIf="rol === 'propietario'">
+      <a [routerLink]="getLocalesAlquiladosLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-user"></i>
+        <span>Mis locales</span>
+      </a>
+    </li>
     <li class="sidebar-item" *ngIf="rol === 'dueño' || rol === 'administrador' || rol === 'propietario'">
       <a [routerLink]="getPagoLink()" routerLinkActive="active" class="sidebar-link">
         <i class="lni lni-user"></i>
