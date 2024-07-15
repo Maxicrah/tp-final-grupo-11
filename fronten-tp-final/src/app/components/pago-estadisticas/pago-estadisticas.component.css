@@ -1,0 +1,13 @@
+.dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.chart-container {
+  margin-bottom: 40px;
+}
+
+.total-pagos {
+  font-size: 24px;
+}

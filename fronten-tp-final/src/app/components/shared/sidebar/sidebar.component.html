@@ -100,6 +100,12 @@
         <span>Configuración</span>
       </a>
     </li>
+    <li class="sidebar-item" *ngIf="rol === 'dueño'">
+      <a [routerLink]="getEstadisticasPagosLink()" routerLinkActive="active" class="sidebar-link">
+        <i class="lni lni-chart"></i>
+        <span>Estadísticas de Pagos</span>
+      </a>
+    </li>
   </ul>
   <div class="sidebar-footer">
     <a (click)="logout()" class="sidebar-link">

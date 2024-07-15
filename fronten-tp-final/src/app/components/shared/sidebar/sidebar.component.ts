@@ -46,6 +46,14 @@ export class SidebarComponent {
       return '/dashboard-admin';
     }
   }
+
+  getEstadisticasPagosLink(): string {
+    if (this.rol === 'dueño') {
+      return '/duenio-dashboard/pagos-estadisticas';
+    } else {
+      return '';
+    }
+  }
   
   getDashboardTitle(): string {
     if (this.rol === 'propietario') {
