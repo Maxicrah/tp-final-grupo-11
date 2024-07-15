@@ -11,6 +11,22 @@ alquilerCtrl.getAlquileres = async (req, res) => {
     }
 };
 
+alquilerCtrl.getLocalesAlquiladosPorPropietario = async (req, res) => {
+    try {
+        const propietarioId = req.params.propietarioId;
+        
+        // Encuentra todos los alquileres para el propietario dado
+        const alquileres = await Alquiler.find({ propietario: propietarioId }).populate('local');
+        
+        // Extrae los locales de los alquileres
+        const localesAlquilados = alquileres.map(alquiler => alquiler.local);
+        
+        res.status(200).json(localesAlquilados);
+    } catch (error) {
+        res.status(500).json({ message: "Error al obtener los locales alquilados", error });
+    }
+};
+
 // alquilerCtrl.getAllAlquileres = async (req, res) => {
 //     try {
 //         const alquileres = await Alquiler.find();

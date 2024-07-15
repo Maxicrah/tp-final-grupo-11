@@ -71,7 +71,14 @@ export class SidebarComponent {
     }
   }
 
-  
+  getLocalesAlquiladosLink():string{
+    if(this.rol === 'propietario') {
+      return '/propietario-dashboard/locales-alquilados';
+  }else{
+    return '/home';
+  }
+  }
+
   getLocalesDisponiblesLink():string {
     if(this.rol === 'propietario') {
       return '/propietario-dashboard/locales-disponibles';

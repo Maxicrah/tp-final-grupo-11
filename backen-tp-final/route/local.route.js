@@ -13,5 +13,4 @@ router.get('/habilitados', localCtrl.getLocalesHabilitados);
 router.get('/no-alquilados', localCtrl.getLocalesNoAlquilados); 
 router.put('/alquilar/:id', localCtrl.alquilarLocal);
 
-
 module.exports = router;

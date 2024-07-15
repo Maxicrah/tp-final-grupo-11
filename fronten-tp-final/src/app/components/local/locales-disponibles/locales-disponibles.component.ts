@@ -32,7 +32,6 @@ export class LocalesDisponiblesComponent {
       )
     }
 
-
     alquilarLocal(id: string) {
       this._localService.alquilarLocal(id).subscribe(
         (response) => {

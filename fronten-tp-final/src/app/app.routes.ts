@@ -12,6 +12,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { PropietarioDashboardComponent } from './components/propietario-dashboard/propietario-dashboard.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { LocalesDisponiblesComponent } from './components/local/locales-disponibles/locales-disponibles.component';
+import { LocalesAlquiladosComponent } from './components/local/locales-alquilados/locales-alquilados.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'alquiler-form', component: FormAlquilerComponent },
       { path: 'pago-form', component: PagoComponent },
       { path: 'locales-disponibles', component: LocalesDisponiblesComponent },
+      { path: 'locales-alquilados', component: LocalesAlquiladosComponent },
 
     ]},
     { path : 'login', component: LoginComponent},
